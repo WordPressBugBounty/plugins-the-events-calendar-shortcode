@@ -2,8 +2,8 @@
 /**
  * Plugin Name: The Events Calendar Shortcode & Block
  * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
- * Description: An addon to add shortcode and new editor block functionality for The Events Calendar Plugin by StellarWP (formerly Modern Tribe)
- * Version: 3.0.0
+ * Description: Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
+ * Version: 3.0.1
  * Author: Event Calendar Newsletter
  * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
  * Contributors: brianhogg
@@ -65,7 +65,7 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        const VERSION = '3.0.0';
+        const VERSION = '3.0.1';
 
         private $admin_page = null;
 
@@ -203,7 +203,7 @@ if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
          *
          * @return string shortcode output
          */
-        public function ecs_fetch_events( $atts ) {
+        public function ecs_fetch_events( $atts, $content = '' ) {
             /*
              * Check if events calendar plugin method exists
              */
@@ -444,7 +444,7 @@ if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
                         }
                     }
                     $event_output .= apply_filters( 'ecs_event_end_tag', '</li>', $atts, $post );
-                    $output .= apply_filters( 'ecs_single_event_output', $event_output, $atts, $post, $post_index, $posts );
+                    $output .= apply_filters( 'ecs_single_event_output', $event_output, $atts, $post, $post_index, $posts, $content );
                 }
                 $output .= apply_filters( 'ecs_end_tag', '</ul>', $atts );
                 $output = apply_filters( 'ecs_ending_output', $output, $posts, $atts );

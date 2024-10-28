@@ -143,6 +143,8 @@
                   <div class="mb-8 text-center"><a class="text-[#EB6924] hover:text-[#EB6924]" target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-design-image-grouped&utm_content=description"><img alt="" style="width: 300px;" src="<?php echo plugins_url( '/static/images/the-events-calendar-shortcode-pro-grouped.png', TECS_CORE_PLUGIN_FILE ); ?>"><br><?php echo esc_html( __( 'Pro version grouped design example', 'the-events-calendar-shortcode' ) ); ?></a></div>
                   <div class="mb-8 text-center"><a class="text-[#EB6924] hover:text-[#EB6924]" target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-design-image-filter-bar&utm_content=description"><img alt="" style="width: 300px;" src="<?php echo plugins_url( '/static/images/the-events-calendar-shortcode-filter-bar.png', TECS_CORE_PLUGIN_FILE ); ?>"><br><?php echo esc_html( __( 'Pro version filter bar example', 'the-events-calendar-shortcode' ) ); ?></a></div>
                   <div class="mb-8 text-center"><a class="text-[#EB6924] hover:text-[#EB6924]" target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-design-image-pagination&utm_content=description"><img alt="" style="width: 300px;" src="<?php echo plugins_url( '/static/images/the-events-calendar-shortcode-pagination.png', TECS_CORE_PLUGIN_FILE ); ?>"><br><?php echo esc_html( __( 'Pro version pagination example', 'the-events-calendar-shortcode' ) ); ?></a></div>
+                  <div class="mb-8 text-center"><a class="text-[#EB6924] hover:text-[#EB6924]" target="_blank" href="https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-design-image-shortcode-variables&utm_content=description#variables"><img alt="" style="width: 300px;" src="<?php echo plugins_url( '/static/images/the-events-calendar-shortcode-pro-shortcode-variables.png', TECS_CORE_PLUGIN_FILE ); ?>"><br><?php echo esc_html( __( 'Pro version shortcode variables example', 'the-events-calendar-shortcode' ) ); ?></a></div>
+
                 </div>
 
                 <h3 class="additional-options"><?php echo esc_html__( "In addition to designs, you'll get more options, including:", 'the-events-calendar-shortcode' ); ?></h3>
@@ -193,7 +195,7 @@
                   </div>
                   <div class="w-5/12 mb-4">
                     <h4><?php echo esc_html__( 'Custom Design', 'the-events-calendar-shortcode' ); ?></h4>
-                    <div class="mb-2"><?php echo esc_html__( 'Use the new default or compact designs, or create your own using one or more templates in your theme folder', 'the-events-calendar-shortcode' ); ?></div>
+                    <div class="mb-2"><?php echo sprintf( esc_html__( 'Use the new default or compact designs, create your own using %sshortcode variables%s, or customize one or more templates in your theme folder', 'the-events-calendar-shortcode' ), '<a target="_blank" href="https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/custom-design/#variables">', '</a>' ); ?></div>
                   </div>
                   <div class="w-5/12 mb-4">
                     <h4><?php echo esc_html__( 'Filter Bar', 'the-events-calendar-shortcode' ); ?></h4>

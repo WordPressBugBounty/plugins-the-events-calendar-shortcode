@@ -9,6 +9,10 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         parent::__construct( $data, $args );
     }
 
+    public function get_script_depends() {
+        return apply_filters( 'ecs_elementor_widget_script_depends', [] );
+    }
+
     public function get_name() {
         return 'tecs_widget';
     }

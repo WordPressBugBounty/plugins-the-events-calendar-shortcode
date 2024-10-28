@@ -22,6 +22,16 @@
           <p class="text-gray-500 text-base"><?php echo esc_html( __( 'When using the WordPress editor, select The Events Calendar Block. After saving, the list of your events will display.', 'the-events-calendar-shortcode' ) ); ?></p>
         </div>
       </div>
+      <?php if ( defined( 'ELEMENTOR_VERSION' ) ): ?>
+        <div class="flex bg-gray-100 py-6">
+          <div class="flex-1 p-6">
+            <p class="text-gray-500 text-base"><?php echo esc_html( __( 'When using Elementor, on the left sidebar, find the widget in the "General" section or search for The Events Calendar Shortcode using the search box at the top.', 'the-events-calendar-shortcode' ) ); ?></p>
+          </div>
+          <div class="flex-1">
+            <img class="object-cover max-w-full h-auto" src="<?php echo esc_attr( plugins_url( 'static/images/the-events-calendar-elementor-widget.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
+          </div>
+        </div>
+      <?php endif; ?>
       <div class="p-6">
         <p class="text-gray-500 text-base"><?php echo esc_html( __( 'You can also use a shortcode (which is just some text between [ and ]) on a page to display a list of your events.  For example the shortcode to show next 8 events in the category "festival":', 'the-events-calendar-shortcode' ) ); ?></p>
         <code class="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-4 pl-6">[ecs-list-events cat='festival' limit='8']</code>
@@ -105,6 +115,7 @@
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Grouped design', 'the-events-calendar-shortcode' ) ); ?></li>
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Filter bar', 'the-events-calendar-shortcode' ) ); ?></li>
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Pagination', 'the-events-calendar-shortcode' ) ); ?></li>
+              <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo sprintf( esc_html( __( 'Customize using %sShortcode Variables%s', 'the-events-calendar-shortcode' ) ), '<a class="text-white" target="_blank" href="https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/custom-design/#variables">', '</a>' ); ?></li>
             </ul>
             <ul class="pl-4 w-1/3">
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Button links', 'the-events-calendar-shortcode' ) ); ?></li>
@@ -114,6 +125,7 @@
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Offset to skip events', 'the-events-calendar-shortcode' ) ); ?></li>
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Add custom designs', 'the-events-calendar-shortcode' ) ); ?></li>
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Show a single event', 'the-events-calendar-shortcode' ) ); ?></li>
+              <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Customize using Template files', 'the-events-calendar-shortcode' ) ); ?></li>
             </ul>
             <div class="w-3/12 h-auto">
               <div class="flex flex-col w-full h-full align-middle justify-center items-center">

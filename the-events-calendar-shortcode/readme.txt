@@ -5,7 +5,7 @@ Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,7 +79,7 @@ Plus, get advanced control over how your events display:
 <li><strong>Hide recurring events:</strong> Only show the first instance of a recurring event.</li>
 <li><strong>Filter bar:</strong> Allow visitors to choose what events they want to see.</li>
 <li><strong>Pagination:</strong> Let visitors view additional pages of events.</li>
-<li><strong>Custom design:</strong> Create your own templates, or use one of the seven built-in options.</li>
+<li><strong>Custom design:</strong> Create your own using Shortcode Variables or templates, or use one of the seven built-in options.</li>
 <li><strong>Plus much more:</strong> <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">check out The Events Calendar Shortcode Pro details here</a>.</li>
 </ul>
 
@@ -163,7 +163,7 @@ With [The Events Calendar Shortcode & Block Pro](https://eventcalendarnewsletter
 * date range - Show only events between certain days `[ecs-list-events fromdate='2024-05-31' todate='2024-06-15']`
 * timeonly - To show just the start time of the event. `[ecs-list-events timeonly='true']`
 * offset - Skip a certain number of events from the beginning, useful for using multiple shortcodes on the same page (with ads in between) or splitting into columns
-* custom design - Create one or more of your own templates for use with the shortcode
+* custom design - Create one or more of your own using shortcode variables or templates for use with the shortcode
 * hiderecurring - To only show the first instance of a recurring event, set to 'true'
 
 [Get The Events Calendar Shortcode & Block Pro](https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options-bottom&utm_content=description)
@@ -213,6 +213,10 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 5. Many settings you can use in the shortcode to change what details appear in the events listing
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+* Improved Elementor compatibility
+* Additional help text
 
 = 3.0.0 =
 * Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
@@ -283,6 +287,10 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 Adds link to full documentation
 
 == Changelog ==
+
+= 3.0.1 =
+* Improved Elementor compatibility
+* Additional help text
 
 = 3.0.0 =
 * Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
