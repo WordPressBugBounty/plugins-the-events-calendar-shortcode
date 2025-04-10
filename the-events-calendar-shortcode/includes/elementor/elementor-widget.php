@@ -61,7 +61,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'limit',
             [
-                'label' => __( 'Number of Events', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Number of Events', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => 5,
                 'condition' => apply_filters( 'ecs_elementor_limit_condition', [] ),
@@ -71,11 +71,11 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'order',
             [
-                'label' => __( 'Order', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Order', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
-                    'ASC' => __( 'Ascending', 'the-events-calendar-shortcode' ),
-                    'DESC' => __( 'Descending', 'the-events-calendar-shortcode' ),
+                    'ASC' => esc_html__( 'Ascending', 'the-events-calendar-shortcode' ),
+                    'DESC' => esc_html__( 'Descending', 'the-events-calendar-shortcode' ),
                 ],
                 'default' => 'ASC',
             ]
@@ -85,7 +85,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'thumbnail',
             [
-                'label' => __( 'Show thumbnail image', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Show thumbnail image', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
                 'default' => 'no',
                 'condition' => apply_filters( 'ecs_elementor_thumbnail_condition', [] ),
@@ -95,12 +95,12 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'thumbnail_dimensions_choice',
             [
-                'label' => __( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => [
-                    'default' => __( 'Default', 'the-events-calendar-shortcode' ),
-                    'width_and_height' => __( 'Width & Height', 'the-events-calendar-shortcode' ),
-                    'size' => __( 'Size', 'the-events-calendar-shortcode' ),
+                    'default' => esc_html__( 'Default', 'the-events-calendar-shortcode' ),
+                    'width_and_height' => esc_html__( 'Width & Height', 'the-events-calendar-shortcode' ),
+                    'size' => esc_html__( 'Size', 'the-events-calendar-shortcode' ),
                 ],
                 'default' => 'default',
                 'condition' => [
@@ -113,7 +113,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'thumbnail_width',
             [
-                'label' => __( 'Thumbnail Width', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Thumbnail Width', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => '150',
                 'condition' => apply_filters( 'ecs_elementor_thumbnail_width_and_height_conditions', [
@@ -126,7 +126,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'thumbnail_height',
             [
-                'label' => __( 'Thumbnail Height', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Thumbnail Height', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => '150',
                 'condition' => apply_filters( 'ecs_elementor_thumbnail_width_and_height_conditions', [
@@ -139,7 +139,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'thumbnail_size',
             [
-                'label' => __( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '',
                 'condition' => apply_filters( 'ecs_elementor_thumbnail_size_conditions', [
@@ -152,7 +152,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'venue',
             [
-                'label' => __( 'Show venue information', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Show venue information', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
                 'default' => 'no',
             ]
@@ -161,7 +161,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt',
             [
-                'label' => __( 'Show excerpt of events', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Show excerpt of events', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
                 'default' => 'no',
             ]
@@ -170,7 +170,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'excerpt_length',
             [
-                'label' => __( 'Excerpt Length', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Excerpt Length', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::NUMBER,
                 'default' => '100',
                 'condition' => [
@@ -197,7 +197,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'past',
             [
-                'label' => __( 'Show only past events?', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Show only past events?', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::SWITCHER,
                 'default' => 'no',
             ]
@@ -224,7 +224,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $advanced->add_control(
             'key',
             [
-                'label' => __( 'Key', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Key', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '',
                 'label_block' => true,
@@ -234,7 +234,7 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         $advanced->add_control(
             'value',
             [
-                'label' => __( 'Value', 'the-events-calendar-shortcode' ),
+                'label' => esc_html__( 'Value', 'the-events-calendar-shortcode' ),
                 'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => '',
                 'label_block' => true,

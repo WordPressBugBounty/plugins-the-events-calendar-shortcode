@@ -4,18 +4,18 @@ Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
 Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.6
-Stable tag: 3.0.1
+Tested up to: 6.7
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
+Add shortcode, block, Elementor and Bricks functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
 
 == Description ==
 
 **Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode & Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by StellarWP, formerly Modern Tribe.
 
-This plugin adds a shortcode, a WordPress block (Gutenberg editor), and now an **Elementor** widget for use with The Events Calendar WordPress Plugin.
+This plugin adds a shortcode, a WordPress block (Gutenberg editor), and now an **Elementor widget** and a **Bricks element** for use with The Events Calendar WordPress Plugin.
 
 Display a list of your events by either adding a block in the new editor, or adding a shortcode to any post, page, or widget.
 
@@ -24,14 +24,14 @@ Here’s a quick video showing you what you can do:
 [youtube https://www.youtube.com/watch?v=_hpfuoa6MZM]
 
 <blockquote>
-If you need extra design and functionality, <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Get The Events Calendar Shortcode Pro</a>! The Pro version offers seven designs, additional filtering options, and full control over how your events display.
+If you need extra design and functionality, <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Get The Events Calendar Shortcode & Block Pro</a>! The Pro version offers seven designs, additional filtering options, and full control over how your events display.
 
 You get the same full integration with The Events Calendar, plus premium support, show multiple shortcodes on one page, a filter bar so users can find what events they want to see, and it works with any WordPress theme.
 
 <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check out the Pro version today</a>
 </blockquote>
 
-Trusted by 20,000+ WordPress sites and a 4.5 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you’ve been after :)
+Trusted by 20,000+ WordPress sites and a 4.6 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you’ve been after :)
 
 == How to use The Events Calendar Shortcode & Block ==
 
@@ -65,7 +65,7 @@ You’ll find a full list of how to use these options in the shortcode below in 
 <blockquote>
 <h3>With Pro, choose your design and get even more control</h3>
 
-<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode Pro</a> adds extra designs, including a true calendar view, compact and column-based designs, and advanced features like events grouped by day.
+<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a> adds extra designs, including a true calendar view, compact and column-based designs, and advanced features like events grouped by day.
 
 Plus, get advanced control over how your events display:
 
@@ -80,10 +80,10 @@ Plus, get advanced control over how your events display:
 <li><strong>Filter bar:</strong> Allow visitors to choose what events they want to see.</li>
 <li><strong>Pagination:</strong> Let visitors view additional pages of events.</li>
 <li><strong>Custom design:</strong> Create your own using Shortcode Variables or templates, or use one of the seven built-in options.</li>
-<li><strong>Plus much more:</strong> <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">check out The Events Calendar Shortcode Pro details here</a>.</li>
+<li><strong>Plus much more:</strong> <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">check out The Events Calendar Shortcode & Block Pro details here</a>.</li>
 </ul>
 
-<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode Pro</a> is ideal for non-profits, charities, businesses, conferences, developers, and WordPress agencies who need the extra control and support straight from the plugin developer. <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check it out here</a>.
+<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a> is ideal for non-profits, charities, businesses, conferences, developers, and WordPress agencies who need the extra control and support straight from the plugin developer. <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check it out here</a>.
 </blockquote>
 
 == Who's using The Events Calendar Shortcode? ==

@@ -3,7 +3,7 @@
  * Plugin Name: The Events Calendar Shortcode & Block
  * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
  * Description: Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
- * Version: 3.0.1
+ * Version: 3.1
  * Author: Event Calendar Newsletter
  * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
  * Contributors: brianhogg
@@ -13,7 +13,7 @@
  * Requires at least: 6.2
  * Requires PHP: 7.4
  */
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
     header( 'Status: 403 Forbidden' );
     header( 'HTTP/1.1 403 Forbidden' );
     exit();
@@ -35,6 +35,34 @@ if ( ! function_exists( 'ecs_load_core_elementor_is_active' ) ) {
         \Elementor\Plugin::instance()->widgets_manager->register( new TECS_Elementor_Widget() );
     }
     add_action( 'elementor/widgets/widgets_registered', 'ecs_load_core_elementor_is_active' );
+}
+
+if ( ! function_exists( 'ecs_load_core_bricks' ) ) {
+    function ecs_load_core_bricks() {
+        if ( ! class_exists( '\Bricks\Elements' ) ) {
+            return;
+        }
+
+        $bricks_file = dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/bricks/bricks-element.php';
+        \Bricks\Elements::register_element( $bricks_file, 'the-events-calendar-shortcode', 'TECS_Element' );
+    }
+    add_action( 'init', 'ecs_load_core_bricks', 11 );
+}
+
+if ( ! function_exists( 'ecs_bricks_load_icon' ) ) {
+    function ecs_bricks_load_icon() {
+        if ( ! function_exists( 'bricks_is_builder_main' ) || ! bricks_is_builder_main() ) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'ecs-bricks-admin-css',
+            plugins_url( 'includes/bricks/static/admin.css', TECS_CORE_PLUGIN_FILE ),
+            [],
+            Events_Calendar_Shortcode::VERSION
+        );
+    }
+    add_action( 'wp_enqueue_scripts', 'ecs_bricks_load_icon' );
 }
 
 if ( ! function_exists( 'ecs_elementor_add_icon' ) ) {
@@ -65,7 +93,7 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        const VERSION = '3.0.1';
+        const VERSION = '3.1';
 
         private $admin_page = null;
 
@@ -358,7 +386,7 @@ if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
 
             if ( $posts or apply_filters( 'ecs_always_show', false, $atts ) ) {
                 $output = apply_filters( 'ecs_beginning_output', $output, $posts, $atts );
-                $output .= apply_filters( 'ecs_start_tag', '<ul class="ecs-event-list">', $atts, count( (array) $posts ) );
+                $output .= apply_filters( 'ecs_start_tag', '<ul class="ecs-event-list">', $atts, count( (array) $posts ), $content );
                 $atts['contentorder'] = explode( ',', $atts['contentorder'] );
 
                 foreach ( (array) $posts as $post_index => $post ) {
