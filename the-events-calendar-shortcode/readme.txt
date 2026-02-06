@@ -4,8 +4,8 @@ Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
 Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.8
-Stable tag: 3.1
+Tested up to: 6.9
+Stable tag: 3.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -212,81 +212,19 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 4. You can also add the shortcode where you want the list of events to appear on any WordPress post, page, or widget
 5. Many settings you can use in the shortcode to change what details appear in the events listing
 
-== Upgrade Notice ==
-
-= 3.0.1 =
-* Improved Elementor compatibility
-* Additional help text
-
-= 3.0.0 =
-* Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
-
-= 2.8.5 =
-* Fixing the Order and Order By options not saving in the block
-* Optional opt-in tracking notice added
-
-= 2.8.4 =
-* Fixing documentation page
-
-= 2.8.3 =
-* Updated documentation link
-
-= 2.8.2 =
-* Additional help meta box
-
-= 2.8.1 =
-* Fixing un-ended link on help page
-
-= 2.8 =
-* New getting started page
-* Improved help page design
-
-= 2.7.1 =
-* Maintain the default content order when first creating the block
-
-= 2.7 =
-* Ability to change the content order in the block via drag-and-drop
-* Updating the block interface with better dropdowns
-
-= 2.6.1 =
-* Adding required file
-
-= 2.6 =
-* Removing support for very old PHP versions
-* Ratings notice
-
-= 2.5.6 =
-* Fix translations for "There are no upcoming events" and "View all events" since The Events Calendar 6.x
-
-= 2.5.5 =
-* Fix warning message on the Widgets page
-* Fix saving the thumbnail settings when using the block
-
-= 2.5.4.1 =
-* Reducing permission requirement for instructions page (Authors)
-
-= 2.5.4 =
-* Fix broken settings page link
-
-= 2.5.3 =
-* Fix for month="next" when near the end of a month
-
-= 2.5.2 =
-* Initial workaround for styling issues for the block in the new full-site editor
-
-= 2.5.1 =
-* Fixes missing categories in the block if many categories available on the site
-
-= 2.5 =
-* Adding div when there are no events found, to avoid display issues on some themes
-
-= 2.4 =
-* Updating block script dependencies
-
-= 2.3.1 =
-Adds link to full documentation
-
 == Changelog ==
+
+= 3.1.3 =
+* Additional escaping for text entered into the message attribute.
+
+= 3.1.2 =
+* Additional escaping of options when using the block
+
+= 3.1.1 =
+* Updated documentation links
+
+= 3.1 =
+* Support for Bricks theme
 
 = 3.0.1 =
 * Improved Elementor compatibility

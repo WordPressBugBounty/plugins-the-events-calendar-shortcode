@@ -115,7 +115,7 @@ function ecs_render_block( $attributes ) {
             $kv_attributes = json_decode( $value );
 
             foreach ( $kv_attributes as $kv_attribute ) {
-                $attribute_str .= " {$kv_attribute->key}=\"{$kv_attribute->value}\"";
+                $attribute_str .= " " . esc_attr( $kv_attribute->key ) . "=\"" . esc_attr( $kv_attribute->value ) . "\"";
             }
             continue;
         }
@@ -130,18 +130,18 @@ function ecs_render_block( $attributes ) {
                     return $option['value'];
                 }, $contentorder_items );
 
-                $attribute_str .= " contentorder=\"" . implode( ',', $contentorder_items ) . "\"";
+                $attribute_str .= " contentorder=\"" . esc_attr( implode( ',', $contentorder_items ) ) . "\"";
             }
 
             continue;
         }
 
         if ( isset( $attributes[ $key ] ) && ! empty( $attributes[ $key ] ) ) {
-            $attribute_str .= " {$key}=\"{$value}\"";
+            $attribute_str .= " " . esc_attr( $key ) . "=\"" . esc_attr( $value ) . "\"";
         }
     }
 
-    $shortcode_str = "[ecs-list-events{$attribute_str}]";
+    $shortcode_str = '[ecs-list-events' . $attribute_str . ']';
 
     return do_shortcode( $shortcode_str );
 }

@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="my-10 text-center">
-                    <?php echo sprintf( esc_html__( '%sGet The Plugin%s', 'the-events-calendar-shortcode' ), '<a class="min-w-[240px] bg-[#EB6924] rounded p-4 flex-none text-white shadow-lg text-center no-underline hover:text-white font-medium text-base" target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-after-options&utm_content=description">', '</a>' ); ?> or <a href="https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/">see it in action</a></div>
+                    <?php echo sprintf( esc_html__( '%sGet The Plugin%s', 'the-events-calendar-shortcode' ), '<a class="min-w-[240px] bg-[#EB6924] rounded p-4 flex-none text-white shadow-lg text-center no-underline hover:text-white font-medium text-base" target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=plugin&utm_medium=link&utm_campaign=tecs-help-after-options&utm_content=description">', '</a>' ); ?> or <a href="https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/" target="_blank">see it in action</a></div>
                 </div>
             </div>
           </div>

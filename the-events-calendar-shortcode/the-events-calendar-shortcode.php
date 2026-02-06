@@ -3,7 +3,7 @@
  * Plugin Name: The Events Calendar Shortcode & Block
  * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
  * Description: Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
- * Version: 3.1
+ * Version: 3.1.3
  * Author: Event Calendar Newsletter
  * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
  * Contributors: brianhogg
@@ -93,7 +93,7 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        const VERSION = '3.1';
+        const VERSION = '3.1.3';
 
         private $admin_page = null;
 
@@ -483,7 +483,7 @@ if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
                     $output .= apply_filters( 'ecs_view_all_events_tag_end', '</span></div>' );
                 }
             } else {
-                $output .= '<div class="ecs-no-events">' . apply_filters( 'ecs_no_events_found_message', sprintf( _x( $atts['message'], 'A message to indicate there are no upcoming events.', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() ), $atts ) . '</div>';
+                $output .= '<div class="ecs-no-events">' . apply_filters( 'ecs_no_events_found_message', sprintf( _x( wp_kses_post( $atts['message'] ), 'A message to indicate there are no upcoming events.', 'the-events-calendar' ), tribe_get_event_label_plural_lowercase() ), $atts ) . '</div>';
             }
 
             wp_reset_postdata();
