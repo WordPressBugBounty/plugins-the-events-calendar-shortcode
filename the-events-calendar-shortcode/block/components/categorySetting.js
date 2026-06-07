@@ -73,22 +73,20 @@ class CategorySetting extends Component {
 	 */
 	render() {
 		return (
-			<Fragment>
-				<FormTokenField
-					suggestions={ this.state.selectValues }
-					tokenizeOnSpace={ false }
-					displayTransform={ this.displayTransform }
-					onChange={ this.handleChange }
-					disabled={ this.state.isLoading }
-					value={ this.state.selectedCats.filter( Boolean ) }
-					placeholder={ __(
-						'Search Categories',
-						'the-events-calendar-shortcode'
-					) }
-					label={ false }
-					__experimentalShowHowTo={ false }
-				/>
-			</Fragment>
+			<FormTokenField
+				label={ __( 'Category', 'the-events-calendar-shortcode' ) }
+				suggestions={ this.state.selectValues }
+				tokenizeOnSpace={ false }
+				displayTransform={ this.displayTransform }
+				onChange={ this.handleChange }
+				disabled={ this.state.isLoading }
+				value={ this.state.selectedCats.filter( Boolean ) }
+				placeholder={ __(
+					'Search Categories',
+					'the-events-calendar-shortcode'
+				) }
+				__experimentalShowHowTo={ false }
+			/>
 		);
 	}
 }

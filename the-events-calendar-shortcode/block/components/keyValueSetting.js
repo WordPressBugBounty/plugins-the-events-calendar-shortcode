@@ -1,29 +1,16 @@
-import { Component, Fragment } from '@wordpress/element';
+import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { TextControl } from '@wordpress/components';
 
-/**
-* Setting component for key/value
-*/
 class KeyValueSetting extends Component {
-	/**
-	 * @param {string} key The new key
-	 */
 	handleKeyChange = ( key ) => {
 		this.updateKeyValueAttribute( 'key', key );
 	}
 
-	/**
-	 * @param {string} value The new value
-	 */
 	handleValueChange = ( value ) => {
 		this.updateKeyValueAttribute( 'value', value );
 	}
 
-	/**
-	 * @param {string} type key or value input
-	 * @param {string} newValue the updated input for key or value
-	 */
 	updateKeyValueAttribute = ( type, newValue ) => {
 		const { uid } = this.props;
 		let { keyValue } = this.props.attributes;
@@ -34,9 +21,6 @@ class KeyValueSetting extends Component {
 		this.props.setAttributes( { keyValue: JSON.stringify( keyValue ) } );
 	}
 
-	/**
-	 * @return {ReactElement} Key Value Repeater
-	 */
 	render() {
 		let { keyValue } = this.props.attributes;
 
@@ -44,27 +28,18 @@ class KeyValueSetting extends Component {
 		const item = keyValue[ this.props.uid ];
 
 		return (
-			<Fragment>
-				<div className={ 'ecs-key-value' }>
-					<TextControl
-						label={ __( 'Key', 'the-events-calendar-shortcode' ) }
-						value={ item.key }
-						onChange={ this.handleKeyChange }
-					/>
-					<TextControl
-						label={ __( 'Value', 'the-events-calendar-shortcode' ) }
-						value={ item.value }
-						onChange={ this.handleValueChange }
-					/>
-				</div>
-                <div className={ 'ecs-setting-help' }>
-                    <a
-                        href={ 'https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=plugin&utm_medium=link&utm_campaign=block-advanced-help&utm_content=description&free=1' }
-                        target={ '_blank' }
-                    >{ __( 'View documentation on available options', 'the-events-calendar-shortcode' ) }</a>
-                    { __( ' where key="value" in the shortcode can be entered in the boxes above', 'the-events-calendar-shortcode' ) }
-				</div>
-			</Fragment>
+			<div className="ecs-key-value">
+				<TextControl
+					label={ __( 'Key', 'the-events-calendar-shortcode' ) }
+					value={ item.key }
+					onChange={ this.handleKeyChange }
+				/>
+				<TextControl
+					label={ __( 'Value', 'the-events-calendar-shortcode' ) }
+					value={ item.value }
+					onChange={ this.handleValueChange }
+				/>
+			</div>
 		);
 	}
 }

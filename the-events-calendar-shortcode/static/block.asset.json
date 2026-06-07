@@ -1,1 +1,1 @@
-{"dependencies":["react","react-dom","wp-api-fetch","wp-blocks","wp-components","wp-element","wp-hooks","wp-i18n","wp-server-side-render"],"version":"ef0d91254349dd3d6cd3"}
+{"dependencies":["react","react-dom","wp-api-fetch","wp-block-editor","wp-blocks","wp-components","wp-element","wp-hooks","wp-i18n","wp-server-side-render"],"version":"e3afcb43073c2b1e6b01"}

@@ -58,20 +58,20 @@ function ecs_register_block() {
         ],
         'thumbsize' => [
             'type' => 'string',
-            'default' => '',
         ],
         'thumbwidth' => [
             'type' => 'string',
-            'default' => '',
         ],
         'thumbheight' => [
             'type' => 'string',
-            'default' => '',
         ],
         'venue' => [
             'type' => 'string',
         ],
-        'past' => [ 'type' => 'string' ],
+        'past' => [
+            'type' => 'string',
+            'default' => '',
+        ],
         'orderby' => [
             'type' => 'string',
         ],
@@ -85,6 +85,22 @@ function ecs_register_block() {
             'type' => 'array',
         ],
         'keyValue' => [ 'type' => 'string' ],
+        'eventdetails' => [
+            'type' => 'string',
+            'default' => 'true',
+        ],
+        'viewall' => [
+            'type' => 'string',
+            'default' => 'false',
+        ],
+        'message' => [
+            'type' => 'string',
+            'default' => '',
+        ],
+        'key' => [
+            'type' => 'string',
+            'default' => 'End Date',
+        ],
     ] );
 
     register_block_type( 'events-calendar-shortcode/block', [
@@ -133,6 +149,12 @@ function ecs_render_block( $attributes ) {
                 $attribute_str .= " contentorder=\"" . esc_attr( implode( ',', $contentorder_items ) ) . "\"";
             }
 
+            continue;
+        }
+
+        $handled = apply_filters( 'ecs_block_render_attribute', '', $key, $value );
+        if ( $handled !== '' ) {
+            $attribute_str .= $handled;
             continue;
         }
 

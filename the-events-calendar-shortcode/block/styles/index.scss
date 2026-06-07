@@ -1,38 +1,57 @@
-// Header
-.ecs-block-header {
-    text-align: center;
+// Block preview — disable link clicks so clicking selects the block.
+.ecs-block-preview {
+    a {
+        pointer-events: none;
+    }
 
-    h3 {
-        margin: 0;
+    // Re-enable for calendar navigation and interactive elements
+    .fc a,
+    .fc button,
+    .fc .fc-button,
+    .ecs-events.calendar a {
+        pointer-events: auto;
     }
 }
 
-// Block Container
-.ecs-block-edit {
-    padding: 10px 15px;
-
-    font-family: sans-serif;
-    font-size: 18px;
-
-    h4 {
-        margin: 0;
-    }
+// Sidebar settings container
+.ecs-sidebar-settings {
+    padding: 16px;
 }
 
-// FormTokenField fix
-.ecs-setting-col {
-    .components-form-token-field__label {
+// Setting sections within the sidebar
+.ecs-setting-section {
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+    &:empty {
         display: none;
     }
 
-    .components-form-token-field__remove-token.components-button {
-        padding: 0 2px;
+    &:first-child {
+        padding-top: 0;
     }
 
-    .components-form-token-field__suggestions-list {
-        margin: 0;
-        padding: 0;
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
     }
+
+    .components-toggle-control {
+        margin-bottom: 0;
+    }
+
+    // Add spacing between a toggle and its sub-options
+    .components-toggle-control + *:not(.components-toggle-control) {
+        margin-top: 8px;
+    }
+}
+
+.ecs-setting-section-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #757575;
+    margin-bottom: 8px;
 }
 
 // Content Order
@@ -53,6 +72,11 @@
         background-color: #e5e5e5;
         color: #aaa;
     }
+
+    &.inactive {
+        opacity: 0.4;
+        border-style: dashed;
+    }
 }
 
 .ecs-contentorder-item-inner {
@@ -61,71 +85,14 @@
     align-items: center;
 }
 
-// Settings Row
-.ecs-settings-row {
-    display: flex;
-    padding: 18px 0;
-    border-bottom: 1px solid #e5e5e5;
-
-    &.mobile {
-        flex-direction: column;
-
-        > * {
-            margin-bottom: 8px;
-        }
-
-        .ecs-remove-col {
-            align-self: center;
-            margin-bottom: 0;
-        }
-    }
-
-    > * {
-        padding: 0 10px;
-    }
-
-    .ecs-selector-col {
-        flex: 3;
-        display: flex;
-        align-items: center;
-    }
-
-    .ecs-setting-col {
-        flex: 4;
-    }
-
-    .ecs-remove-col {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
+// FormTokenField fix
+.components-form-token-field__label {
+    display: none;
 }
 
-// Setting Selector
-.ecs-setting-add {
-    display: flex;
-    padding: 18px 10px;
-
-    > .components-base-control {
-        width: 100%;
-    }
-
-    > .ecs-select {
-        flex: 3;
-        padding: 0 10px;
-    }
-
-    > .ecs-flex-fill {
-        flex: 5;
-        padding: 0 10px;
-    }
-
-    &.mobile {
-        > .ecs-flex-fill {
-            display: none;
-        }
-    }
+.components-form-token-field__suggestions-list {
+    margin: 0;
+    padding: 0;
 }
 
 // General Setting Input Text
@@ -139,28 +106,50 @@
 }
 
 .ecs-setting-help {
-    line-height: 1.1;
-    font-size: 16px;
-    margin-top: 10px;
+    line-height: 1.4;
+    font-size: 12px;
+    color: #757575;
+    margin-top: 8px;
 }
 
 // Key Value Setting
 .ecs-key-value {
     display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+}
 
-    :first-child {
-        margin-right: 10px;
-    }
+.ecs-kv-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e0e0e0;
 
-    > div {
+    .ecs-key-value {
         flex: 1;
     }
+
+    .ecs-kv-remove {
+        margin-top: 24px;
+        flex-shrink: 0;
+    }
+}
+
+.ecs-kv-add {
+    margin-top: 4px;
 }
 
 // Month Setting
 .ecs-settings-month {
     display: flex;
     flex-direction: column;
+
+    .ecs-setting-current {
+        margin-bottom: 8px;
+    }
 
     .ecs-setting-year-month {
         display: flex;
@@ -211,4 +200,3 @@
         margin-top: 5px;
     }
 }
-

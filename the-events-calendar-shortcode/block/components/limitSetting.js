@@ -1,38 +1,23 @@
-import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-/**
-* Setting component for limit
-*/
-class LimitSetting extends Component {
-	/**
-	 * Handle limit input change
-	 *
-	 * @param {Object} event input onChange event
-	 */
-	handleChange = ( event ) => {
-		this.props.setAttributes( { limit: parseInt( event.target.value ) } );
+export default function LimitSetting( { attributes, setAttributes } ) {
+	if ( attributes.design === 'calendar' ) {
+		return null;
 	}
 
-	/**
-	 * @return {ReactElement} Limit Setting
-	 */
-	render() {
-		const { attributes } = this.props;
-
-		return (
-			attributes.design !== 'calendar' ? <Fragment>
-				<input
-					id={ 'ecs-setting-limit' }
-					type={ 'number' }
-					min={ 1 }
-					value={ typeof attributes.limit !== 'undefined' ? attributes.limit : '5' }
-					onChange={ this.handleChange }
-				/>
-			</Fragment> : __( 'n/a', 'the-events-calendar-shortcode' )
-		);
-	}
+	return (
+		<div className="ecs-setting-text-field">
+			<label
+				className="ecs-setting-label"
+				htmlFor="ecs-setting-limit"
+			>{ __( 'Number of events', 'the-events-calendar-shortcode' ) }</label>
+			<input
+				id="ecs-setting-limit"
+				type="number"
+				min={ 1 }
+				value={ typeof attributes.limit !== 'undefined' ? attributes.limit : '5' }
+				onChange={ ( e ) => setAttributes( { limit: parseInt( e.target.value ) } ) }
+			/>
+		</div>
+	);
 }
-
-export default LimitSetting;
-

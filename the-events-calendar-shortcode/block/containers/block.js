@@ -1,18 +1,24 @@
+import { useState, useEffect } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 import BlockEdit from './blockEdit';
 import BlockPreview from './blockPreview';
 
-import { Component } from '@wordpress/element';
+export default function Block( props ) {
+	const [ PreviewComponent, setPreviewComponent ] = useState(
+		() => applyFilters( 'ecs.blockPreview', BlockPreview )
+	);
 
-class Block extends Component {
-	/**
-	* @return {ReactElement} The block preview or the edit form
-	*/
-	render() {
-		const { isSelected } = this.props;
-		const blockMode = isSelected ? <BlockEdit { ...this.props } /> : <BlockPreview { ...this.props } />;
+	useEffect( () => {
+		const filtered = applyFilters( 'ecs.blockPreview', BlockPreview );
+		if ( filtered !== PreviewComponent ) {
+			setPreviewComponent( () => filtered );
+		}
+	}, [] );
 
-		return blockMode;
-	}
+	return (
+		<>
+			<BlockEdit { ...props } />
+			<PreviewComponent { ...props } />
+		</>
+	);
 }
-
-export default Block;

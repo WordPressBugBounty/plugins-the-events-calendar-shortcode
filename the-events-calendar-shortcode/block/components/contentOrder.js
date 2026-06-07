@@ -2,6 +2,7 @@ import { useMemo, useEffect, useRef, forwardRef } from '@wordpress/element';
 import { Dashicon } from '@wordpress/components';
 import { applyFilters } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
+import { getDesignDefault } from '../utils/designDefaults';
 import {
 	DndContext,
 	closestCenter,
@@ -24,55 +25,43 @@ export default function ContentOrder( props ) {
 	const designConfig = filteredConfig?.[ attributes.design ] ?? [];
 	const { contentorder = designConfig } = attributes;
 
-	let items = contentorder;
-
-	// check for conditional items in design config
-	const conditionalItems = designConfig.filter(
-		( item ) => typeof item.conditional !== 'undefined'
+	// Keep only items that belong to the current design, preserving user's order
+	const designValues = designConfig.map( ( item ) => item.value );
+	let items = [ ...contentorder ].filter( ( item ) =>
+		designValues.includes( item.value )
 	);
 
-	// check if we need to add back conditional items
-	if ( conditionalItems.length > 0 ) {
-		conditionalItems.forEach( ( conditionalItem ) => {
-			const attribute = conditionalItem.value;
-			const index = items.findIndex( ( item ) => item.value === attribute );
-			if ( index === -1 ) {
-				items.push( conditionalItem );
-			}
-		} );
-	}
-
-	// see if any conditionals are not satisfied and remove them
-	items = items.filter( ( item ) => {
-		if ( typeof item.conditional === 'undefined' ) {
-			return true;
+	// Add back any design config items that are missing
+	designConfig.forEach( ( configItem ) => {
+		if ( ! items.find( ( item ) => item.value === configItem.value ) ) {
+			items.push( { ...configItem } );
 		}
-
-		const { attribute, comparison, value } = item.conditional;
-
-		if ( typeof attributes[ attribute ] === 'undefined' ) {
-			return false;
-		}
-
-		let result = false;
-
-		switch ( comparison ) {
-			case '===':
-				result = attributes[ attribute ] === value;
-				break;
-			case '!==':
-				result = attributes[ attribute ] !== value;
-				break;
-		}
-
-		return result;
 	} );
 
-	// remove duplicate items
+	// Remove duplicates
 	items = items.filter(
 		( item, index, self ) =>
 			index === self.findIndex( ( t ) => t.value === item.value )
 	);
+
+	// Mark items as inactive when their feature toggle is off (purely visual —
+	// the shortcode already checks individual attributes like thumb/venue/excerpt)
+	items = items.map( ( item ) => {
+		if ( typeof item.conditional === 'undefined' ) {
+			return { ...item, inactive: false };
+		}
+
+		const { attribute, comparison, value } = item.conditional;
+		const attrValue = typeof attributes[ attribute ] !== 'undefined'
+			? attributes[ attribute ]
+			: ( getDesignDefault( attributes.design, attribute ) || 'false' );
+
+		let conditionMet = true;
+		if ( comparison === '===' ) conditionMet = attrValue === value;
+		if ( comparison === '!==' ) conditionMet = attrValue !== value;
+
+		return { ...item, inactive: ! conditionMet };
+	} );
 
 	const itemIds = useMemo( () => items.map( ( item ) => item.value ), [ items ] );
 
@@ -84,11 +73,6 @@ export default function ContentOrder( props ) {
 		} )
 	);
 
-	/**
-	 * Handle the drag end event
-	 *
-	 * @param {Event} event
-	 */
 	function handleDragEnd( event ) {
 		const { active, over } = event;
 
@@ -101,34 +85,26 @@ export default function ContentOrder( props ) {
 		}
 	}
 
-	/**
-	 * Change the checked property on the individiual contentorder item
-	 *
-	 * @param {Event} event
-	 */
 	function handleCheckboxChange( event ) {
 		const { checked, value } = event.target;
 
 		const newAttributes = items.map( ( item ) => {
 			if ( item.value === value ) {
-				item.checked = checked;
+				return { ...item, checked };
 			}
-
 			return item;
 		} );
 
 		setAttributes( { contentorder: newAttributes } );
 	}
 
-	// get previous attributes
+	// Reset contentorder when design changes
 	const previousDesignRef = useRef( attributes.design );
 
-	// set contentorder to the new design config when the design changes
 	useEffect( () => {
 		if ( attributes.design !== previousDesignRef.current ) {
-			setAttributes( { contentorder: designConfig } );
-
 			previousDesignRef.current = attributes.design;
+			setAttributes( { contentorder: designConfig } );
 		}
 	}, [ attributes.design ] );
 
@@ -181,18 +157,19 @@ function SortableItem( props ) {
 }
 
 const Item = forwardRef( ( { item, onCheckboxChange, ...props }, ref ) => {
-	const containerCSSClass = item.checked
-		? 'ecs-contentorder-item'
-		: 'ecs-contentorder-item unchecked';
+	let className = 'ecs-contentorder-item';
+	if ( ! item.checked ) className += ' unchecked';
+	if ( item.inactive ) className += ' inactive';
 
 	return (
-		<div { ...props } ref={ ref } className={ containerCSSClass }>
+		<div { ...props } ref={ ref } className={ className }>
 			<Dashicon icon="menu-alt2" />
 			<span className="ecs-contentorder-item-inner">
 				<input
 					type="checkbox"
 					onChange={ ( event ) => onCheckboxChange( event, item ) }
 					checked={ item.checked }
+					disabled={ item.inactive }
 					value={ item.value }
 				/>
 				{ item.label }

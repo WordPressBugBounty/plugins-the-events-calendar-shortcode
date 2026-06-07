@@ -1,15 +1,15 @@
 === The Events Calendar Shortcode & Block ===
 Contributors: brianhogg
-Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
+Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
 Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 6.9
-Stable tag: 3.1.3
-License: GPLv2 or later
+Tested up to: 7.0
+Stable tag: 4.0.0
+License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add shortcode, block, Elementor and Bricks functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
+Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
 
 == Description ==
 
@@ -19,7 +19,7 @@ This plugin adds a shortcode, a WordPress block (Gutenberg editor), and now an *
 
 Display a list of your events by either adding a block in the new editor, or adding a shortcode to any post, page, or widget.
 
-Here’s a quick video showing you what you can do:
+Here's a quick video showing you what you can do:
 
 [youtube https://www.youtube.com/watch?v=_hpfuoa6MZM]
 
@@ -31,11 +31,11 @@ You get the same full integration with The Events Calendar, plus premium support
 <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check out the Pro version today</a>
 </blockquote>
 
-Trusted by 20,000+ WordPress sites and a 4.6 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you’ve been after :)
+Trusted by 20,000+ WordPress sites and a 4.7 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you've been after :)
 
 == How to use The Events Calendar Shortcode & Block ==
 
-You can use the shortcode or block to add a list of your events, filtered by various options. Here’s an example of how you’d show the next 8 events in the category festival:
+You can use the shortcode or block to add a list of your events, filtered by various options. Here's an example of how you'd show the next 8 events in the category festival:
 
 `[ecs-list-events cat="festival" limit="8"]`
 
@@ -53,14 +53,14 @@ You can also filter the events in the shortcode and choose from the following op
 * Event excerpt: Show or hide the event excerpt, and set an excerpt length.
 * Event content details: Change the order the event details are displayed.
 * Thumbnail: Show or hide a thumbnail image.
-* View all events link: Choose whether to include a “view all events” link or not.
+* View all events link: Choose whether to include a "view all events" link or not.
 * Events from a specific month: show only events from specific months (including current or next month).
 * Previous events: Show previous events.
 * Hide started events: Hide events when their start time passes.
 
 This gives you full control over how your events are displayed, and is perfect for non-profits, charities, businesses, conferences, and anyone with a WordPress website showing events.
 
-You’ll find a full list of how to use these options in the shortcode below in the plugin’s FAQs or <a href="https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">on our documentation page</a>.
+You'll find a full list of how to use these options in the shortcode below in the plugin's FAQs or <a href="https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">on our documentation page</a>.
 
 <blockquote>
 <h3>With Pro, choose your design and get even more control</h3>
@@ -104,7 +104,7 @@ The full list of options you can use can be found <a href="https://eventcalendar
 
 We also have a full course on setting up The Events Calendar, our The Events Calendar Shortcode & Block plugin, and more: <a href="https://eventcalendarnewsletter.com/the-events-calendar-course/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Getting Started Promoting Events with The Events Calendar plugin for WordPress</a>
 
-If you have any other questions about the plugin, you can post a thread <a href="https://wordpress.org/support/plugin/the-events-calendar-shortcode/">in the WordPress.org forum</a>. If you’re looking for premium, personalized support, consider upgrading to <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a>.
+If you have any other questions about the plugin, you can post a thread <a href="https://wordpress.org/support/plugin/the-events-calendar-shortcode/">in the WordPress.org forum</a>. If you're looking for premium, personalized support, consider upgrading to <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a>.
 
 Still have a question? You can send us an email at info@eventcalendarnewsletter.com.
 
@@ -124,7 +124,7 @@ You can then add The Events Calendar Block or `[ecs-list-events]` shortcode to t
 
 = What are the shortcode and block options for customizing my events? =
 
-Here’s the [full list of shortcode and block options](https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options&utm_content=description) you can use to customize how your events display:
+Here's the [full list of shortcode and block options](https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options&utm_content=description) you can use to customize how your events display:
 
 * Basic shortcode: `[ecs-list-events]`
 * cat - Show events from an event category `[ecs-list-events cat='festival']` or specify multiple categories `[ecs-list-events cat='festival, workshops']`
@@ -206,7 +206,7 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 
 == Screenshots ==
 
-1. Show your events from The Events Calendar (by StellarWP, formerly Modern Tribe) in a list, and customize specifically which events you’re displaying
+1. Show your events from The Events Calendar (by StellarWP, formerly Modern Tribe) in a list, and customize specifically which events you're displaying
 2. Add a block in the page or post where you want your events to appear, and select the display options you want (new default WordPress editor or Gutenberg plugin)
 3. Add a widget in Elementor to show your events in a page or post, and customize the display options you want
 4. You can also add the shortcode where you want the list of events to appear on any WordPress post, page, or widget
@@ -214,108 +214,79 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 
 == Changelog ==
 
-= 3.1.3 =
-* Additional escaping for text entered into the message attribute.
+= v4.0.0 - 2026-06-07 =
 
-= 3.1.2 =
-* Additional escaping of options when using the block
+##### Updates and Enhancements
 
-= 3.1.1 =
-* Updated documentation links
++ Move the block settings to the sidebar, and adds most additional options to the block instead of having to use key/value pairs.
++ Improved logic for setting the attributes between the toggle on/off and the content order toggle.
++ Always show content order items rather than filtering and re-inserting them in a potentially different order.
++ Set default design attributes so the options show what appears in the preview correctly.
 
-= 3.1 =
-* Support for Bricks theme
 
-= 3.0.1 =
-* Improved Elementor compatibility
-* Additional help text
+= v3.1.3 - 2026-02-05 =
 
-= 3.0.0 =
-* Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
+##### Updates and Enhancements
 
-= 2.8.5 =
-* Fixing the Order and Order By options not saving in the block
-* Optional opt-in tracking notice added
++ Additional escaping for text entered into the message attribute.
 
-= 2.8.4 =
-* Fixing documentation page
 
-= 2.8.3 =
-* Updated documentation link
+= v3.1.2 - 2026-01-28 =
 
-= 2.8.2 =
-* Additional help meta box
+##### Updates and Enhancements
 
-= 2.8.1 =
-* Fixing un-ended link on help page
++ Additional escaping of options when using the block
 
-= 2.8 =
-* New getting started page
-* Improved help page design
 
-= 2.7.1 =
-* Maintain the default content order when first creating the block
+= v3.1.1 - 2025-11-27 =
 
-= 2.7 =
-* Ability to change the content order in the block via drag-and-drop
-* Updating the block interface with better dropdowns
+##### Updates and Enhancements
 
-= 2.6.1 =
-* Adding required file
++ Updated documentation links
 
-= 2.6 =
-* Removing support for very old PHP versions
-* Ratings notice
 
-= 2.5.6 =
-* Fix translations for "There are no upcoming events" and "View all events" since The Events Calendar 6.x
+= v3.1.0 - 2025-04-10 =
 
-= 2.5.5 =
-* Fix warning message on the Widgets page
-* Fix saving the thumbnail settings when using the block
+##### Updates and Enhancements
 
-= 2.5.4.1 =
-* Reducing permission requirement for instructions page (Author)
++ Support for Bricks theme
 
-= 2.5.4 =
-* Fix broken settings page link
 
-= 2.5.3 =
-* Fix for month="next" when near the end of a month
+= v3.0.1 - 2024-10-28 =
 
-= 2.5.2 =
-* Initial workaround for styling issues for the block in the new full-site editor
+##### Updates and Enhancements
 
-= 2.5.1 =
-* Fixes missing categories in the block if many categories available on the site
++ Improved Elementor compatibility
++ Additional help text
 
-= 2.5 =
-* Adding div when there are no events found, to avoid display issues on some themes
 
-= 2.4 =
-* Updating block script dependencies
+= v3.0.0 - 2024-06-10 =
 
-= 2.3.1 =
-* Adds link to full documentation and short walk-through video
-* Developers: Adds additional param to the ecs_start_tag filter with the number of events
+##### New Features
 
-= 2.3 =
-* Fix for using order='DESC' to order events in descending order by event date, with the latest version of The Events Calendar (by Modern Tribe)
++ Adds a block for Elementor! Easily add your events to any page or post using the Elementor page builder.
 
-= 2.2.1 =
-* Adds block description
 
-= 2.2 =
-* Compatibility fixes with Divi
+= v2.8.5 - 2024-02-23 =
 
-= 2.1 =
-* Disables the new WP editor block if Cornerstone page builder is active due to incompatibilities
+##### Bug Fixes
 
-= 2.0.2 =
-* Additional check if wp_set_script_translations exists (not with the Gutenberg plugin)
++ Fixing the Order and Order By options not saving in the block
 
-= 2.0.1 =
-* Tweaks to handling of default values in the block
+##### Updates and Enhancements
 
-= 2.0 =
-* Adds a block in addition to the shortcode that can be used with the new WordPress editor (as of version 5.0) or Gutenberg plugin
++ Optional opt-in tracking notice added
+
+
+= v2.8.4 - 2023-12-03 =
+
+##### Bug Fixes
+
++ Fixing documentation page
+
+
+= v2.8.3 - 2023-12-03 =
+
+##### Updates and Enhancements
+
++ Updated documentation link

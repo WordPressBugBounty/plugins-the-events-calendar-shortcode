@@ -1,2 +1,50 @@
 @tailwind components;
 @tailwind utilities;
+
+.ecs-injected-options h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.ecs-injected-options h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #eb6924;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  margin: 1.25rem 0 0.25rem;
+}
+
+.ecs-injected-options h2:first-child,
+.ecs-injected-options h3:first-child {
+  margin-top: 0;
+}
+
+.ecs-injected-options p,
+.ecs-injected-options > div {
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.ecs-injected-options ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #4b5563;
+}
+
+.ecs-injected-options blockquote {
+  display: inline-flex;
+  background: #1f2937;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+.ecs-injected-options a {
+  color: #eb6924;
+}

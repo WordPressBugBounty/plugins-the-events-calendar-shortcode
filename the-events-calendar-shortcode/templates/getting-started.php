@@ -106,6 +106,27 @@
       <div class="bg-black text-white w-full text-base">
         <div class="p-6 mx-auto">
           <h2 class="text-white"><?php echo esc_html( __( 'Upgrade to Pro', 'the-events-calendar-shortcode' ) ); ?></h2>
+          <p class="text-gray-300 mb-4"><?php echo esc_html( __( 'Pro adds ready-made designs and additional event filters. Click any design to see it in action:', 'the-events-calendar-shortcode' ) ); ?></p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+            <?php
+            $tecs_pro_designs = [
+              [ 'image' => 'the-events-calendar-shortcode-pro-default.png',  'label' => __( 'Default', 'the-events-calendar-shortcode' ),  'demo' => 'default-design' ],
+              [ 'image' => 'the-events-calendar-shortcode-pro-compact.png',  'label' => __( 'Compact', 'the-events-calendar-shortcode' ),  'demo' => 'compact-design' ],
+              [ 'image' => 'the-events-calendar-shortcode-pro-calendar.png', 'label' => __( 'Calendar', 'the-events-calendar-shortcode' ), 'demo' => 'calendar-design' ],
+              [ 'image' => 'the-events-calendar-shortcode-pro-columns.png',  'label' => __( 'Columns / Photo', 'the-events-calendar-shortcode' ), 'demo' => 'columns-photos-horizontal-design' ],
+              [ 'image' => 'the-events-calendar-shortcode-pro-table.png',    'label' => __( 'Table', 'the-events-calendar-shortcode' ),    'demo' => 'table-design' ],
+              [ 'image' => 'the-events-calendar-shortcode-pro-grouped.png',  'label' => __( 'Grouped', 'the-events-calendar-shortcode' ),  'demo' => 'grouped-design' ],
+            ];
+            foreach ( $tecs_pro_designs as $tecs_design ):
+            ?>
+              <a class="group block no-underline text-center" target="_blank" href="<?php echo esc_url( 'https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/' . $tecs_design['demo'] . '/?utm_source=plugin&utm_medium=link&utm_campaign=tecs-design-demo&utm_content=' . $tecs_design['demo'] ); ?>">
+                <div class="overflow-hidden rounded-lg border border-gray-700 bg-white shadow-lg mb-1">
+                  <img alt="<?php echo esc_attr( $tecs_design['label'] ); ?>" class="w-full h-auto object-cover" src="<?php echo esc_attr( plugins_url( 'static/images/' . $tecs_design['image'], TECS_CORE_PLUGIN_FILE ) ); ?>">
+                </div>
+                <span class="text-sm text-gray-300 group-hover:text-white"><?php echo esc_html( $tecs_design['label'] ); ?></span>
+              </a>
+            <?php endforeach; ?>
+          </div>
           <div class="flex flex-row">
             <ul class="w-1/3">
               <li class="before:content-['✓'] before:text-[#008a20] before:mr-2"><?php echo esc_html( __( 'Improved default design', 'the-events-calendar-shortcode' ) ); ?></li>
@@ -145,12 +166,14 @@
           <div class="flex flex-row">
             <div class="w-1/5">
               <div class="relative w-24 h-24 pt-4">
-                <img alt="" class="w-full h-full rounded-full object-cover" src="<?php echo esc_attr( plugins_url( 'static/images/barry-harris.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
+                <img alt="" class="w-full h-full rounded-full object-cover" src="<?php echo esc_attr( plugins_url( 'static/images/yvon-b.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
               </div>
             </div>
             <div class="w-4/5 text-base">
-              <div class="mb-4">I was trying to solve issues with multiple The Events Calendar shortcodes on the same page and came across this plugin. After seeing the plugin had a no-questions-asked return policy I decided to give it a try. This plugin addressed my issues, and would highly recommend it to others.</div>
-              <div class="mb-2"><strong>Barry Harris</strong>, WordPress/WooCommerce Developer</div>
+              <div class="mb-4">We have many different events to display: sports broadcasts on a large screen, karaoke nights, concerts, family activities, special events, and seasonal animations. I needed a simple way to display upcoming events automatically on different pages, with images and categories, without having to update everything manually each time.</div>
+              <div class="mb-4">The shortcode and block system seemed like the right solution for this.</div>
+              <div class="mb-4">So far, it is very useful for building a cleaner and more manageable events page.</div>
+              <div class="mb-2"><strong>Yvon B.</strong>, Base de loisirs du Lac des Chênes</div>
             </div>
           </div>
         </div>
