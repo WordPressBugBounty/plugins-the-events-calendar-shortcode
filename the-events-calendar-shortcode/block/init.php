@@ -104,6 +104,7 @@ function ecs_register_block() {
     ] );
 
     register_block_type( 'events-calendar-shortcode/block', [
+        'api_version' => 3,
         'editor_style' => 'ecs-block-css',
         'editor_script' => 'ecs-block-js',
         'render_callback' => 'ecs_render_block',

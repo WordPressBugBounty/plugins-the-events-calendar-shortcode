@@ -3,14 +3,6 @@
     a {
         pointer-events: none;
     }
-
-    // Re-enable for calendar navigation and interactive elements
-    .fc a,
-    .fc button,
-    .fc .fc-button,
-    .ecs-events.calendar a {
-        pointer-events: auto;
-    }
 }
 
 // Sidebar settings container

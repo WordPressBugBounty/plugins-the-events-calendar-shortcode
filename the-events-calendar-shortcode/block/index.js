@@ -5,8 +5,10 @@ import Block from './containers/block';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import { registerBlockType } from '@wordpress/blocks';
+import { useBlockProps } from '@wordpress/block-editor';
 
 registerBlockType( 'events-calendar-shortcode/block', {
+	apiVersion: 3,
 	title: __( 'The Events Calendar Block', 'the-events-calendar-shortcode' ),
 	description: __( 'Display your events from The Events Calendar', 'the-events-calendar-shortcode' ),
 	icon: logo,
@@ -17,10 +19,12 @@ registerBlockType( 'events-calendar-shortcode/block', {
 
 	edit: ( props ) => {
 		return (
-			<Block
-				settingsConfig={ applyFilters( 'ecs.settingsConfig', settingsConfig ) }
-				{ ...props }
-			/>
+			<div { ...useBlockProps() }>
+				<Block
+					settingsConfig={ applyFilters( 'ecs.settingsConfig', settingsConfig ) }
+					{ ...props }
+				/>
+			</div>
 		);
 	},
 

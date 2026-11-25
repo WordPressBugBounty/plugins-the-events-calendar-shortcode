@@ -1,6 +1,13 @@
 <?php
+/**
+ * Elementor widget for The Events Calendar Shortcode.
+ *
+ * Controls are generated from the shared builder option registry
+ * (includes/builder-options.php). Legacy control names/values are preserved
+ * via the registry's per-builder key overrides so existing saved pages keep
+ * working.
+ */
 
-// my_custom_elementor_widget.php
 use Elementor\Repeater;
 
 class TECS_Elementor_Widget extends \Elementor\Widget_Base {
@@ -25,278 +32,289 @@ class TECS_Elementor_Widget extends \Elementor\Widget_Base {
         return 'elementor-icon-ecs';
     }
 
+    /**
+     * Convert a registry condition into Elementor's condition format,
+     * translating canonical option keys/values to control names/values.
+     */
+    protected function convert_condition( $option, $options ) {
+        $condition = [];
+
+        foreach ( (array) ( isset( $option['condition'] ) ? $option['condition'] : [] ) as $rule ) {
+            list( $field, $op, $expected ) = $rule;
+
+            if ( ! isset( $options[ $field ] ) ) {
+                continue;
+            }
+
+            $field_option = $options[ $field ];
+            $name = ecs_builder_option_control_name( $field, $field_option, 'elementor' );
+
+            if ( 'toggle' === $field_option['type'] ) {
+                $wants_on = ( '==' === $op ) ? (bool) $expected : ! $expected;
+                $condition[ $wants_on ? $name : $name . '!' ] = 'yes';
+                continue;
+            }
+
+            switch ( $op ) {
+                case '==':
+                    $condition[ $name ] = $expected;
+                    break;
+                case '!=':
+                    $condition[ $name . '!' ] = $expected;
+                    break;
+                case 'in':
+                    $condition[ $name ] = array_values( (array) $expected );
+                    break;
+                case '!in':
+                    $condition[ $name . '!' ] = array_values( (array) $expected );
+                    break;
+            }
+        }
+
+        if ( ! empty( $option['condition_filters']['elementor'] ) ) {
+            $condition = apply_filters( $option['condition_filters']['elementor'], $condition );
+        }
+
+        return $condition;
+    }
+
+    /**
+     * Convert a registry option definition into Elementor control args.
+     */
+    protected function convert_option( $key, $option, $options, $in_repeater = false ) {
+        $args = [
+            'label' => isset( $option['label'] ) ? $option['label'] : '',
+        ];
+
+        if ( ! empty( $option['description'] ) ) {
+            $args['description'] = $option['description'];
+        }
+
+        if ( ! $in_repeater ) {
+            $condition = $this->convert_condition( $option, $options );
+
+            if ( ! empty( $condition ) ) {
+                $args['condition'] = $condition;
+            }
+        } elseif ( ! empty( $option['condition'] ) ) {
+            // Repeater sub-fields reference sibling fields directly.
+            $condition = [];
+
+            foreach ( $option['condition'] as $rule ) {
+                list( $field, $op, $expected ) = $rule;
+
+                switch ( $op ) {
+                    case '==':
+                    case 'in':
+                        $condition[ $field ] = is_array( $expected ) ? array_values( $expected ) : $expected;
+                        break;
+                    case '!=':
+                    case '!in':
+                        $condition[ $field . '!' ] = is_array( $expected ) ? array_values( $expected ) : $expected;
+                        break;
+                }
+            }
+
+            $args['condition'] = $condition;
+        }
+
+        $default = ecs_builder_option_default( $option, 'elementor' );
+
+        switch ( $option['type'] ) {
+            case 'select':
+                $args['type'] = \Elementor\Controls_Manager::SELECT;
+                $args['options'] = ecs_builder_option_choices( $option, 'elementor' );
+                $args['default'] = (string) $default;
+                break;
+
+            case 'toggle':
+                $args['type'] = \Elementor\Controls_Manager::SWITCHER;
+                $args['default'] = $default ? 'yes' : 'no';
+                break;
+
+            case 'number':
+                $args['type'] = \Elementor\Controls_Manager::NUMBER;
+                $args['default'] = '' === $default || null === $default ? '' : $default;
+
+                if ( isset( $option['min'] ) ) {
+                    $args['min'] = $option['min'];
+                }
+                break;
+
+            case 'text':
+                $args['type'] = \Elementor\Controls_Manager::TEXT;
+                $args['default'] = (string) $default;
+                $args['label_block'] = $in_repeater;
+
+                if ( ! empty( $option['placeholder'] ) ) {
+                    $args['placeholder'] = $option['placeholder'];
+                }
+                break;
+
+            case 'multiselect':
+                $args['type'] = \Elementor\Controls_Manager::SELECT2;
+                $args['multiple'] = true;
+                $args['label_block'] = true;
+                $args['options'] = ecs_builder_option_choices( $option, 'elementor' );
+                $args['default'] = [];
+                break;
+
+            case 'repeater':
+                $repeater = new Repeater();
+
+                foreach ( $option['fields'] as $field_key => $field ) {
+                    $repeater->add_control( $field_key, $this->convert_option( $field_key, $field, $options, true ) );
+                }
+
+                $default_rows = [];
+
+                foreach ( (array) $default as $row ) {
+                    $default_row = [];
+
+                    foreach ( $option['fields'] as $field_key => $field ) {
+                        $value = isset( $row[ $field_key ] ) ? $row[ $field_key ] : null;
+
+                        if ( 'toggle' === $field['type'] ) {
+                            $value = $value ? 'yes' : '';
+                        }
+
+                        $default_row[ $field_key ] = null === $value ? '' : $value;
+                    }
+
+                    $default_rows[] = $default_row;
+                }
+
+                $args['type'] = \Elementor\Controls_Manager::REPEATER;
+                $args['fields'] = $repeater->get_controls();
+                $args['default'] = $default_rows;
+                $args['prevent_empty'] = false;
+
+                if ( ! empty( $option['title_field'] ) ) {
+                    $args['title_field'] = '{{{ ' . $option['title_field'] . ' }}}';
+                }
+                break;
+
+            case 'notice':
+                $args['type'] = \Elementor\Controls_Manager::RAW_HTML;
+                $args['raw'] = isset( $option['content'] ) ? $option['content'] : '';
+                $args['content_classes'] = 'ecs-pro-notice';
+                break;
+        }
+
+        return $args;
+    }
+
     protected function _register_controls() {
-        $this->start_controls_section(
-            'content_section',
-            [
-                'label' => __( 'Content', 'text-domain' ),
-                'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-            ]
-        );
+        $options = ecs_builder_options();
+        $sections = ecs_builder_option_sections();
+        $current_section = null;
 
-        $this->add_control(
-            'design_choice',
-            [
-                'label' => __( 'Design', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => apply_filters( 'ecs_elementor_designs', [
-                    '' => __( 'Standard', 'the-events-calendar-shortcode' ),
-                ] ),
-                'default' => apply_filters( 'ecs_elementor_design_default', '' ),
-            ]
-        );
+        foreach ( $options as $key => $option ) {
+            $section = isset( $option['section'] ) ? $option['section'] : 'advanced';
 
-        if ( ! defined( 'TECS_VERSION' ) ) {
-            $this->add_control(
-                'design_choice_pro',
-                [
-                    'label' => esc_html__( 'Want more designs?', 'the-events-calendar-shortcode' ),
-                    'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => sprintf( esc_html__( '%sUpgrade to Pro%s for more designs (including a full calendar view), pagination and a filter bar!', 'the-events-calendar-shortcode' ), '<a target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode/?utm_source=plugin&utm_medium=link&utm_campaign=elementor-block&utm_content=elementor">', '</a>' ) . '<p><a target="_blank" href="https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/?utm_source=plugin&utm_medium=link&utm_campaign=elementor-block&utm_content=elementor">' . esc_html__( 'View the demo', 'the-events-calendar-shortcode' ) . '</a></p>',
-                    'content_classes' => 'ecs-pro-notice',
-                ]
-            );
+            if ( $section !== $current_section ) {
+                if ( null !== $current_section ) {
+                    $this->end_controls_section();
+                }
+
+                $this->start_controls_section(
+                    'ecs_section_' . $section,
+                    [
+                        'label' => isset( $sections[ $section ] ) ? $sections[ $section ] : $section,
+                        'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
+                    ]
+                );
+
+                $current_section = $section;
+            }
+
+            // Legacy extension point (pro used this before the shared registry existed).
+            if ( 'advanced' === $key ) {
+                do_action( 'ecs_elementor_widget_controls_before_advanced', $this );
+            }
+
+            $control_name = ecs_builder_option_control_name( $key, $option, 'elementor' );
+            $this->add_control( $control_name, $this->convert_option( $key, $option, $options ) );
         }
 
-        $this->add_control(
-            'limit',
-            [
-                'label' => esc_html__( 'Number of Events', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => 5,
-                'condition' => apply_filters( 'ecs_elementor_limit_condition', [] ),
-            ]
-        );
+        if ( null !== $current_section ) {
+            $this->end_controls_section();
+        }
+    }
 
-        $this->add_control(
-            'order',
-            [
-                'label' => esc_html__( 'Order', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => [
-                    'ASC' => esc_html__( 'Ascending', 'the-events-calendar-shortcode' ),
-                    'DESC' => esc_html__( 'Descending', 'the-events-calendar-shortcode' ),
-                ],
-                'default' => 'ASC',
-            ]
-        );
+    /**
+     * Convert raw Elementor settings into canonical values for the shared mapper.
+     */
+    protected function normalize_settings( $settings ) {
+        $options = ecs_builder_options();
+        $values = [];
 
-        // Specify whether to show a thumbnail or not, and if so, show the size options
-        $this->add_control(
-            'thumbnail',
-            [
-                'label' => esc_html__( 'Show thumbnail image', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'default' => 'no',
-                'condition' => apply_filters( 'ecs_elementor_thumbnail_condition', [] ),
-            ]
-        );
+        foreach ( $options as $key => $option ) {
+            if ( 'notice' === $option['type'] ) {
+                continue;
+            }
 
-        $this->add_control(
-            'thumbnail_dimensions_choice',
-            [
-                'label' => esc_html__( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => [
-                    'default' => esc_html__( 'Default', 'the-events-calendar-shortcode' ),
-                    'width_and_height' => esc_html__( 'Width & Height', 'the-events-calendar-shortcode' ),
-                    'size' => esc_html__( 'Size', 'the-events-calendar-shortcode' ),
-                ],
-                'default' => 'default',
-                'condition' => [
-                    'thumbnail' => 'yes',
-                    'design_choice!' => 'grouped',
-                ],
-            ]
-        );
+            $name = ecs_builder_option_control_name( $key, $option, 'elementor' );
+            $raw = isset( $settings[ $name ] ) ? $settings[ $name ] : null;
+            $default = ecs_builder_option_default( $option, 'elementor' );
 
-        $this->add_control(
-            'thumbnail_width',
-            [
-                'label' => esc_html__( 'Thumbnail Width', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => '150',
-                'condition' => apply_filters( 'ecs_elementor_thumbnail_width_and_height_conditions', [
-                    'thumbnail' => 'yes',
-                    'thumbnail_dimensions_choice' => 'width_and_height',
-                ] ),
-            ]
-        );
+            switch ( $option['type'] ) {
+                case 'toggle':
+                    $values[ $key ] = null === $raw ? (bool) $default : 'yes' === $raw;
+                    break;
 
-        $this->add_control(
-            'thumbnail_height',
-            [
-                'label' => esc_html__( 'Thumbnail Height', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => '150',
-                'condition' => apply_filters( 'ecs_elementor_thumbnail_width_and_height_conditions', [
-                    'thumbnail' => 'yes',
-                    'thumbnail_dimensions_choice' => 'width_and_height',
-                ] ),
-            ]
-        );
+                case 'multiselect':
+                    if ( is_array( $raw ) ) {
+                        $values[ $key ] = $raw;
+                    } else {
+                        $values[ $key ] = $raw ? array_filter( array_map( 'trim', explode( ',', $raw ) ) ) : [];
+                    }
+                    break;
 
-        $this->add_control(
-            'thumbnail_size',
-            [
-                'label' => esc_html__( 'Thumbnail Size', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => '',
-                'condition' => apply_filters( 'ecs_elementor_thumbnail_size_conditions', [
-                    'thumbnail' => 'yes',
-                    'thumbnail_dimensions_choice' => 'size',
-                ] ),
-            ]
-        );
+                case 'repeater':
+                    $rows = is_array( $raw ) ? $raw : (array) $default;
+                    $normalized_rows = [];
 
-        $this->add_control(
-            'venue',
-            [
-                'label' => esc_html__( 'Show venue information', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'default' => 'no',
-            ]
-        );
+                    foreach ( $rows as $row ) {
+                        $normalized_row = [];
 
-        $this->add_control(
-            'excerpt',
-            [
-                'label' => esc_html__( 'Show excerpt of events', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'default' => 'no',
-            ]
-        );
+                        foreach ( $option['fields'] as $field_key => $field ) {
+                            $value = isset( $row[ $field_key ] ) ? $row[ $field_key ] : ( isset( $field['default'] ) ? $field['default'] : '' );
 
-        $this->add_control(
-            'excerpt_length',
-            [
-                'label' => esc_html__( 'Excerpt Length', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::NUMBER,
-                'default' => '100',
-                'condition' => [
-                    'excerpt' => 'yes',
-                ],
-            ]
-        );
+                            if ( 'toggle' === $field['type'] ) {
+                                $value = is_bool( $value ) ? $value : in_array( $value, [ 'yes', 'true' ], true );
+                            }
 
-        if ( ! defined( 'TECS_VERSION' ) ) {
-            $this->add_control(
-                'excerpt_pro',
-                [
-                    'label' => esc_html__( 'Want more control over the excerpt?', 'the-events-calendar-shortcode' ),
-                    'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => sprintf( esc_html__( '%sUpgrade to Pro%s to show the full description, HTML in your excerpts, and more!', 'the-events-calendar-shortcode' ), '<a target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode/?utm_source=plugin&utm_medium=link&utm_campaign=elementor-block&utm_content=elementor">', '</a>' ),
-                    'content_classes' => 'ecs-pro-notice',
-                    'condition' => [
-                        'excerpt' => 'yes',
-                    ],
-                ]
-            );
+                            $normalized_row[ $field_key ] = $value;
+                        }
+
+                        $normalized_rows[] = $normalized_row;
+                    }
+
+                    $values[ $key ] = $normalized_rows;
+                    break;
+
+                default:
+                    if ( null === $raw ) {
+                        $values[ $key ] = null === $default ? '' : (string) $default;
+                    } else {
+                        $values[ $key ] = is_scalar( $raw ) ? (string) $raw : '';
+                    }
+                    break;
+            }
         }
 
-        $this->add_control(
-            'past',
-            [
-                'label' => esc_html__( 'Show only past events?', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::SWITCHER,
-                'default' => 'no',
-            ]
-        );
-
-        if ( ! defined( 'TECS_VERSION' ) ) {
-            $this->add_control(
-                'past_pro',
-                [
-                    'label' => esc_html__( 'Specify a date range or number of days', 'the-events-calendar-shortcode' ),
-                    'type' => \Elementor\Controls_Manager::RAW_HTML,
-                    'raw' => sprintf( esc_html__( '%sGet more date-related options%s to show events from a specific year, number of days, and even a specific date range.', 'the-events-calendar-shortcode' ), '<a target="_blank" href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode/?utm_source=plugin&utm_medium=link&utm_campaign=elementor-block&utm_content=elementor">', '</a>' ),
-                    'content_classes' => 'ecs-pro-notice',
-                    'condition' => [
-                        'past' => 'yes',
-                    ],
-                ]
-            );
-        }
-
-        do_action( 'ecs_elementor_widget_controls_before_advanced', $this );
-
-        $advanced = new Repeater();
-        $advanced->add_control(
-            'key',
-            [
-                'label' => esc_html__( 'Key', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => '',
-                'label_block' => true,
-            ]
-        );
-
-        $advanced->add_control(
-            'value',
-            [
-                'label' => esc_html__( 'Value', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'default' => '',
-                'label_block' => true,
-            ]
-        );
-
-        $this->add_control(
-            'advanced',
-            [
-                'label' => esc_html__( 'Advanced/Other', 'the-events-calendar-shortcode' ),
-                'type' => \Elementor\Controls_Manager::REPEATER,
-                'fields' => $advanced->get_controls(),
-                'prevent_empty' => false,
-                'title_field' => '{{{ key }}}',
-            ]
-        );
-
-        $this->add_control(
-            'advanced_description',
-            [
-                'label' => '',
-                'type' => \Elementor\Controls_Manager::RAW_HTML,
-                'raw' => sprintf( esc_html__( '%sView documentation on available options%s where key="value" in the shortcode can be entered in the boxes above.', 'the-events-calendar-shortcode' ), '<a target="_blank" href="https://eventcalendarnewsletter.com/events-calendar-shortcode-pro-options/?utm_source=plugin&utm_medium=link&utm_campaign=block-advanced-help&utm_content=elementor' . ( ! defined( 'TECS_VERSION' ) ? '&free=1' : '' ) . '">', '</a>' ),
-                'content_classes' => 'ecs-pro-notice',
-            ]
-        );
-
-        $this->end_controls_section();
+        return $values;
     }
 
     protected function render() {
         $settings = $this->get_settings_for_display();
 
-        $design_choice = $settings['design_choice'];
+        $values = $this->normalize_settings( $settings );
 
-        $atts = [
-            'design' => $design_choice,
-            'thumb' => $settings['thumbnail'] === 'yes' ? 'true' : 'false',
-            'venue' => $settings['venue'] === 'yes' ? 'true' : 'false',
-            'excerpt' => $settings['excerpt'] === 'yes' ? $settings['excerpt_length'] : 'false',
-            'past' => $settings['past'] === 'yes' ? 'yes' : null,
-            'order' => 'DESC' === $settings['order'] ? 'DESC' : 'ASC',
-        ];
-
-        if ( 'calendar' !== $design_choice ) {
-            $atts['limit'] = intval( is_numeric( $settings['limit'] ) ? $settings['limit'] : 5 );
-        }
-
-        if ( 'yes' === $settings['thumbnail'] ) {
-            if ( 'width_and_height' === $settings['thumbnail_dimensions_choice'] ) {
-                $atts['thumbwidth'] = intval( is_numeric( $settings['thumbnail_width'] ) ? $settings['thumbnail_width'] : 150 );
-                $atts['thumbheight'] = intval( is_numeric( $settings['thumbnail_height'] ) ? $settings['thumbnail_height'] : 150 );
-            } else {
-                $atts['thumbsize'] = $settings['thumbnail_size'];
-            }
-        }
-
+        $atts = ecs_builder_settings_to_atts( $values, [ 'skip' => [ 'advanced' ] ] );
         $atts = apply_filters( 'ecs_elementor_widget_atts', $atts, $settings );
-
-        foreach ( $settings['advanced'] as $advanced ) {
-            $atts[ $advanced['key'] ] = $advanced['value'];
-        }
+        $atts = ecs_builder_apply_advanced_atts( $atts, isset( $values['advanced'] ) ? $values['advanced'] : [] );
 
         echo do_shortcode(
             '[ecs-list-events ' . implode( ' ', array_map( function ( $key, $value ) {

@@ -3,7 +3,7 @@
  * Plugin Name: The Events Calendar Shortcode & Block
  * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
  * Description: Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
- * Version: 4.0.0
+ * Version: 4.1.0
  * Author: Event Calendar Newsletter
  * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
  * Contributors: brianhogg
@@ -11,7 +11,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: the-events-calendar-shortcode
  * Requires at least: 6.3
- * Tested up to: 7.0
+ * Tested up to: 7.1
  * Requires PHP: 7.4
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,9 +26,12 @@ if ( ! defined( 'TECS_CORE_PLUGIN_FILE' ) ) {
 }
 
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/block/init.php';
+include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/builder-options.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/ajax-endpoints.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/notices/rating.php';
 include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/admin/class-getting-started.php';
+include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/divi/divi.php';
+include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/abilities.php';
 
 if ( ! function_exists( 'ecs_load_core_elementor_is_active' ) ) {
     function ecs_load_core_elementor_is_active() {
@@ -48,6 +51,35 @@ if ( ! function_exists( 'ecs_load_core_bricks' ) ) {
         \Bricks\Elements::register_element( $bricks_file, 'the-events-calendar-shortcode', 'TECS_Element' );
     }
     add_action( 'init', 'ecs_load_core_bricks', 11 );
+}
+
+if ( ! function_exists( 'ecs_load_core_wpbakery' ) ) {
+    function ecs_load_core_wpbakery() {
+        include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/wpbakery/wpbakery-element.php';
+        tecs_wpbakery_map();
+    }
+    add_action( 'vc_before_init', 'ecs_load_core_wpbakery' );
+
+    function ecs_register_wpbakery_shortcode() {
+        if ( ! defined( 'WPB_VC_VERSION' ) ) {
+            return;
+        }
+
+        include_once dirname( TECS_CORE_PLUGIN_FILE ) . '/includes/wpbakery/wpbakery-element.php';
+        add_shortcode( 'tecs_events', 'tecs_wpbakery_render' );
+    }
+    add_action( 'init', 'ecs_register_wpbakery_shortcode', 11 );
+
+    function ecs_wpbakery_load_editor_css() {
+        wp_enqueue_style(
+            'ecs-wpbakery-admin-css',
+            plugins_url( 'includes/wpbakery/static/admin.css', TECS_CORE_PLUGIN_FILE ),
+            [],
+            Events_Calendar_Shortcode::VERSION
+        );
+    }
+    add_action( 'vc_backend_editor_render', 'ecs_wpbakery_load_editor_css' );
+    add_action( 'vc_frontend_editor_render', 'ecs_wpbakery_load_editor_css' );
 }
 
 if ( ! function_exists( 'ecs_bricks_load_icon' ) ) {
@@ -84,6 +116,15 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
     }
 }
 
+if ( ! function_exists( 'tecs_image_url' ) ) {
+    /**
+     * Build a versioned URL for a static image so cached copies refresh on update.
+     */
+    function tecs_image_url( $filename ) {
+        return add_query_arg( 'ver', Events_Calendar_Shortcode::VERSION, plugins_url( 'static/images/' . ltrim( $filename, '/' ), TECS_CORE_PLUGIN_FILE ) );
+    }
+}
+
 /*
  * Events calendar shortcode addon main class
  *
@@ -94,7 +135,7 @@ if ( ! function_exists( 'tecs_get_capability' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        const VERSION = '4.0.0';
+        const VERSION = '4.1.0';
 
         private $admin_page = null;
 

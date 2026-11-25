@@ -1,0 +1,69 @@
+{
+  "name": "tecs/events",
+  "d4Shortcode": "tecs_divi_events",
+  "title": "The Events Calendar Shortcode & Block",
+  "titles": "The Events Calendar Shortcode & Block",
+  "moduleIcon": "tecs/events",
+  "moduleClassName": "tecs_divi_events",
+  "moduleOrderClassName": "tecs_divi_events",
+  "category": "module",
+  "childrenName": [],
+  "attributes": {
+    "module": {
+      "type": "object",
+      "selector": "{{selector}}",
+      "default": {
+        "meta": {
+          "adminLabel": {
+            "desktop": {
+              "value": "Events"
+            }
+          }
+        }
+      },
+      "settings": {
+        "meta": {
+          "adminLabel": {}
+        },
+        "advanced": {
+          "htmlAttributes": {}
+        },
+        "decoration": {
+          "background": {},
+          "sizing": {},
+          "spacing": {},
+          "border": {},
+          "boxShadow": {},
+          "filters": {},
+          "transform": {},
+          "animation": {},
+          "overflow": {},
+          "disabledOn": {},
+          "transition": {},
+          "position": {},
+          "zIndex": {},
+          "scroll": {},
+          "sticky": {}
+        }
+      }
+    }
+  },
+  "customCssFields": {
+    "eventList": {
+      "subName": "eventList",
+      "label": "Event List",
+      "selectorSuffix": " .ecs-event-list"
+    },
+    "event": {
+      "subName": "event",
+      "label": "Event",
+      "selectorSuffix": " .ecs-event"
+    }
+  },
+  "settings": {
+    "content": "auto",
+    "design": "auto",
+    "advanced": "auto",
+    "groups": {}
+  }
+}

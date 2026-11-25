@@ -4,8 +4,8 @@ Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
 Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 7.0
-Stable tag: 4.0.0
+Tested up to: 7.1
+Stable tag: 4.1.0
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,9 @@ Add shortcode, block and Elementor widget functionality to The Events Calendar P
 
 == Description ==
 
-**Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode & Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by StellarWP, formerly Modern Tribe.
+**Get your events displayed in a customizable list wherever you need them, with The Events Calendar Shortcode & Block!** This plugin fully integrates with The Events Calendar Plugin (free version) by Nexcess, formerly Modern Tribe.
 
-This plugin adds a shortcode, a WordPress block (Gutenberg editor), and now an **Elementor widget** and a **Bricks element** for use with The Events Calendar WordPress Plugin.
+This plugin adds a shortcode, a WordPress block (Gutenberg editor), an **Elementor widget**, a **Bricks element**, a **WPBakery Page Builder element**, and now a **Divi module** (Divi 4 and Divi 5) for use with The Events Calendar WordPress Plugin.
 
 Display a list of your events by either adding a block in the new editor, or adding a shortcode to any post, page, or widget.
 
@@ -42,6 +42,10 @@ You can use the shortcode or block to add a list of your events, filtered by var
 With the WordPress block editor, just add a block and search for The Events Calendar Shortcode.
 
 When editing a post or page with Elementor, you can add The Events Calendar Shortcode widget (under "General") and customize the display options.
+
+With WPBakery Page Builder, add The Events Calendar Shortcode & Block element (under "Content") and customize the display options.
+
+In the Divi Builder (Divi 4 or Divi 5), add The Events Calendar Shortcode & Block module and choose your options with a live preview of your events.
 
 You can also filter the events in the shortcode and choose from the following options:
 
@@ -108,7 +112,7 @@ If you have any other questions about the plugin, you can post a thread <a href=
 
 Still have a question? You can send us an email at info@eventcalendarnewsletter.com.
 
-This plugin is not developed by or affiliated with The Events Calendar WordPress plugin, StellarWP or Modern Tribe in any way.
+This plugin is not developed by or affiliated with The Events Calendar WordPress plugin, Nexcess or Modern Tribe in any way.
 
 == Installation ==
 
@@ -180,6 +184,18 @@ You can put the shortcode in a text widget.
 
 Yes! This plugin <a href="https://eventcalendarnewsletter.com/how-to-use-the-events-calendar-shortcode-with-elementor/?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme-faq-options-bottom&utm_content=description">includes an Elementor Widget</a>.
 
+= Can I use this plugin with WPBakery Page Builder? =
+
+Yes! This plugin includes a WPBakery Page Builder element. Add The Events Calendar Shortcode & Block element (under "Content") to show your events and choose your display options.
+
+= Can I use this plugin with Divi? =
+
+Yes! This plugin includes a module for both Divi 4 and Divi 5. In the Divi Builder, add The Events Calendar Shortcode & Block module to show your events with a live preview.
+
+= Can AI agents and MCP clients use this plugin? =
+
+Yes. On WordPress 6.9 or later the plugin registers two read-only abilities with the WordPress Abilities API: `the-events-calendar-shortcode/get-options` lists every option with its choices and defaults, and `the-events-calendar-shortcode/build-shortcode` turns chosen options into an `[ecs-list-events]` shortcode and can preview its output. They are available through the REST API and the MCP Adapter plugin to users who can edit published posts.
+
 = What are the classes for styling the list of events? =
 
 By default the plugin does not include styling. Events are listed in ul li tags with appropriate classes for styling with a bit of CSS.
@@ -206,13 +222,30 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 
 == Screenshots ==
 
-1. Show your events from The Events Calendar (by StellarWP, formerly Modern Tribe) in a list, and customize specifically which events you're displaying
+1. Show your events from The Events Calendar (by Nexcess, formerly Modern Tribe) in a list, and customize specifically which events you're displaying
 2. Add a block in the page or post where you want your events to appear, and select the display options you want (new default WordPress editor or Gutenberg plugin)
 3. Add a widget in Elementor to show your events in a page or post, and customize the display options you want
 4. You can also add the shortcode where you want the list of events to appear on any WordPress post, page, or widget
 5. Many settings you can use in the shortcode to change what details appear in the events listing
 
 == Changelog ==
+
+= v4.1.0 - 2026-11-23 =
+
+##### New Features
+
++ Adds WordPress Abilities API abilities (WordPress 6.9+) so AI agents can list the event list options and build an [ecs-list-events] shortcode.
++ Adds a Divi module for Divi 4 and Divi 5 to display events, with a live preview in the Divi Visual Builder.
++ Adds a WPBakery Page Builder element to display events.
+
+##### Updates and Enhancements
+
++ The Elementor widget and Bricks element now include all available options.
+
+##### Bug Fixes
+
++ Removes block editor deprecation warnings from the browser console.
+
 
 = v4.0.0 - 2026-06-07 =
 
@@ -283,10 +316,3 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 ##### Bug Fixes
 
 + Fixing documentation page
-
-
-= v2.8.3 - 2023-12-03 =
-
-##### Updates and Enhancements
-
-+ Updated documentation link

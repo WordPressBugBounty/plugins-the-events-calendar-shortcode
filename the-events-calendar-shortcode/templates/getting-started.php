@@ -16,7 +16,7 @@
       </div>
       <div class="flex bg-gray-100 py-6">
         <div class="flex-1">
-          <img class="object-cover max-w-full h-auto" src="<?php echo esc_attr( plugins_url( 'static/images/the-events-calendar-block.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
+          <img class="object-cover max-w-full h-auto" src="<?php echo esc_url( tecs_image_url( 'the-events-calendar-block.png' ) ); ?>">
         </div>
         <div class="flex-1 p-6">
           <p class="text-gray-500 text-base"><?php echo esc_html( __( 'When using the WordPress editor, select The Events Calendar Block. After saving, the list of your events will display.', 'the-events-calendar-shortcode' ) ); ?></p>
@@ -28,7 +28,7 @@
             <p class="text-gray-500 text-base"><?php echo esc_html( __( 'When using Elementor, on the left sidebar, find the widget in the "General" section or search for The Events Calendar Shortcode using the search box at the top.', 'the-events-calendar-shortcode' ) ); ?></p>
           </div>
           <div class="flex-1">
-            <img class="object-cover max-w-full h-auto" src="<?php echo esc_attr( plugins_url( 'static/images/the-events-calendar-elementor-widget.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
+            <img class="object-cover max-w-full h-auto" src="<?php echo esc_url( tecs_image_url( 'the-events-calendar-elementor-widget.png' ) ); ?>">
           </div>
         </div>
       <?php endif; ?>
@@ -121,7 +121,7 @@
             ?>
               <a class="group block no-underline text-center" target="_blank" href="<?php echo esc_url( 'https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/' . $tecs_design['demo'] . '/?utm_source=plugin&utm_medium=link&utm_campaign=tecs-design-demo&utm_content=' . $tecs_design['demo'] ); ?>">
                 <div class="overflow-hidden rounded-lg border border-gray-700 bg-white shadow-lg mb-1">
-                  <img alt="<?php echo esc_attr( $tecs_design['label'] ); ?>" class="w-full h-auto object-cover" src="<?php echo esc_attr( plugins_url( 'static/images/' . $tecs_design['image'], TECS_CORE_PLUGIN_FILE ) ); ?>">
+                  <img alt="<?php echo esc_attr( $tecs_design['label'] ); ?>" class="w-full h-auto object-cover" src="<?php echo esc_url( tecs_image_url( $tecs_design['image'] ) ); ?>">
                 </div>
                 <span class="text-sm text-gray-300 group-hover:text-white"><?php echo esc_html( $tecs_design['label'] ); ?></span>
               </a>
@@ -166,7 +166,7 @@
           <div class="flex flex-row">
             <div class="w-1/5">
               <div class="relative w-24 h-24 pt-4">
-                <img alt="" class="w-full h-full rounded-full object-cover" src="<?php echo esc_attr( plugins_url( 'static/images/yvon-b.png', TECS_CORE_PLUGIN_FILE ) ); ?>">
+                <img alt="" class="w-full h-full rounded-full object-cover" src="<?php echo esc_url( tecs_image_url( 'yvon-b.png' ) ); ?>">
               </div>
             </div>
             <div class="w-4/5 text-base">

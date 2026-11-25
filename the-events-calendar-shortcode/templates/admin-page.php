@@ -49,7 +49,7 @@ $injected_options = trim( ob_get_clean() );
           ?>
             <a class="group block no-underline text-center" target="_blank" href="<?php echo esc_url( 'https://demo.eventcalendarnewsletter.com/the-events-calendar-shortcode/' . $design['demo'] . '/?utm_source=plugin&utm_medium=link&utm_campaign=tecs-design-demo&utm_content=' . $design['demo'] ); ?>">
               <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md mb-2">
-                <img alt="<?php echo esc_attr( $design['label'] ); ?>" class="w-full h-auto object-cover" src="<?php echo plugins_url( '/static/images/' . $design['image'], TECS_CORE_PLUGIN_FILE ); ?>">
+                <img alt="<?php echo esc_attr( $design['label'] ); ?>" class="w-full h-auto object-cover" src="<?php echo esc_url( tecs_image_url( $design['image'] ) ); ?>">
               </div>
               <span class="text-sm font-medium text-gray-700 group-hover:text-[#EB6924]"><?php echo esc_html( $design['label'] ); ?></span>
             </a>
@@ -94,7 +94,7 @@ $injected_options = trim( ob_get_clean() );
         <h2 class="text-xl font-bold text-gray-900 mb-4"><?php echo esc_html( __( 'Using the Block', 'the-events-calendar-shortcode' ) ); ?></h2>
         <div class="flex flex-col sm:flex-row gap-6 items-start">
           <div class="sm:w-1/2">
-            <img class="rounded-lg max-w-full h-auto border border-gray-200" src="<?php echo esc_attr( plugins_url( 'static/images/the-events-calendar-block.png', TECS_CORE_PLUGIN_FILE ) ); ?>" alt="<?php echo esc_attr( __( 'The Events Calendar Block', 'the-events-calendar-shortcode' ) ); ?>">
+            <img class="rounded-lg max-w-full h-auto border border-gray-200" src="<?php echo esc_url( tecs_image_url( 'the-events-calendar-block.png' ) ); ?>" alt="<?php echo esc_attr( __( 'The Events Calendar Block', 'the-events-calendar-shortcode' ) ); ?>">
           </div>
           <div class="sm:w-1/2">
             <p class="text-gray-600 text-base mb-4"><?php echo esc_html( __( 'When using the WordPress editor, select The Events Calendar Block. After saving, the list of your events will display.', 'the-events-calendar-shortcode' ) ); ?></p>
@@ -256,6 +256,7 @@ $injected_options = trim( ob_get_clean() );
       </div>
       <?php endif; ?>
 
+      <?php if ( apply_filters( 'ecs_show_css_classes_reference', true ) ): ?>
       <div class="bg-white rounded-lg shadow-md p-8 mb-6">
         <h2 class="text-xl font-bold text-gray-900 mb-4"><?php echo esc_html( __( 'CSS Classes Reference', 'the-events-calendar-shortcode' ) ); ?></h2>
         <p class="text-gray-600 text-base mb-4"><?php echo esc_html( __( 'By default the plugin does not include styling. Events are listed with these CSS classes for custom styling:', 'the-events-calendar-shortcode' ) ); ?></p>
@@ -305,6 +306,7 @@ $injected_options = trim( ob_get_clean() );
 
         <a class="inline-block rounded-lg px-6 py-3 shadow-md text-center no-underline font-medium text-sm text-gray-700 bg-gray-100 hover:text-gray-700 border border-gray-200" href="https://eventcalendarnewsletter.com/getting-started/?<?php echo esc_attr( $utm_base ); ?>&utm_content=top#css" target="_blank"><?php echo esc_html( __( 'More Information on Customizing the Style', 'the-events-calendar-shortcode' ) ); ?></a>
       </div>
+      <?php endif; ?>
 
     </div>
 

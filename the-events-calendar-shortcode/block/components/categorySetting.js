@@ -85,7 +85,7 @@ class CategorySetting extends Component {
 					'Search Categories',
 					'the-events-calendar-shortcode'
 				) }
-				__experimentalShowHowTo={ false }
+				help=""
 			/>
 		);
 	}
