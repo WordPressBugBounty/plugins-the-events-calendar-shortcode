@@ -4,12 +4,12 @@ Donate link: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
 Tags: shortcode, event, the events calendar, events, calendar
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 7.1
-Stable tag: 4.1.0
+Tested up to: 7.2
+Stable tag: 4.1.1
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
+List your events from The Events Calendar anywhere, with a shortcode, a block, or an Elementor, Bricks, Divi or WPBakery element.
 
 == Description ==
 
@@ -24,14 +24,14 @@ Here's a quick video showing you what you can do:
 [youtube https://www.youtube.com/watch?v=_hpfuoa6MZM]
 
 <blockquote>
-If you need extra design and functionality, <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Get The Events Calendar Shortcode & Block Pro</a>! The Pro version offers seven designs, additional filtering options, and full control over how your events display.
+If you need extra design and functionality, <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Get The Events Calendar Shortcode & Block Pro</a>! The Pro version adds more designs (compact, calendar, columns/grid, grouped, table and map), a slider, additional filtering options, and full control over how your events display.
 
 You get the same full integration with The Events Calendar, plus premium support, show multiple shortcodes on one page, a filter bar so users can find what events they want to see, and it works with any WordPress theme.
 
 <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">Check out the Pro version today</a>
 </blockquote>
 
-Trusted by 20,000+ WordPress sites and a 4.7 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you've been after :)
+Trusted by 10,000+ WordPress sites and a 4.7 star rating on WordPress.org, The Events Calendar Shortcode & Block is the solution you've been after :)
 
 == How to use The Events Calendar Shortcode & Block ==
 
@@ -69,7 +69,7 @@ You'll find a full list of how to use these options in the shortcode below in th
 <blockquote>
 <h3>With Pro, choose your design and get even more control</h3>
 
-<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a> adds extra designs, including a true calendar view, compact and column-based designs, and advanced features like events grouped by day.
+<a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">The Events Calendar Shortcode & Block Pro</a> adds extra designs, including a true calendar view, compact, column (grid) and table designs, a map of your venues, and advanced features like events grouped by day.
 
 Plus, get advanced control over how your events display:
 
@@ -83,7 +83,8 @@ Plus, get advanced control over how your events display:
 <li><strong>Hide recurring events:</strong> Only show the first instance of a recurring event.</li>
 <li><strong>Filter bar:</strong> Allow visitors to choose what events they want to see.</li>
 <li><strong>Pagination:</strong> Let visitors view additional pages of events.</li>
-<li><strong>Custom design:</strong> Create your own using Shortcode Variables or templates, or use one of the seven built-in options.</li>
+<li><strong>Slider:</strong> Show your events in a slider (carousel) that moves to the next events on its own.</li>
+<li><strong>Custom design:</strong> Create your own using Shortcode Variables or templates, or use one of the built-in designs.</li>
 <li><strong>Plus much more:</strong> <a href="https://eventcalendarnewsletter.com/the-events-calendar-shortcode?utm_source=wordpress.org&utm_medium=link&utm_campaign=tecs-readme&utm_content=description">check out The Events Calendar Shortcode & Block Pro details here</a>.</li>
 </ul>
 
@@ -116,7 +117,7 @@ This plugin is not developed by or affiliated with The Events Calendar WordPress
 
 == Installation ==
 
-1. Install The Events Calendar Shortcode Plugin from the WordPress.org repository or by uploading the-events-calendar-shortcode folder to the /wp-content/plugins directory. You must also install The Event Calendar Plugin by Modern Tribe and add your events to the calendar.
+1. Install The Events Calendar Shortcode & Block from the WordPress.org repository or by uploading the-events-calendar-shortcode folder to the /wp-content/plugins directory. You must also install The Events Calendar plugin (by Nexcess) and add your events to the calendar.
 
 2. Activate the plugin through the Plugins menu in WordPress
 
@@ -196,6 +197,10 @@ Yes! This plugin includes a module for both Divi 4 and Divi 5. In the Divi Build
 
 Yes. On WordPress 6.9 or later the plugin registers two read-only abilities with the WordPress Abilities API: `the-events-calendar-shortcode/get-options` lists every option with its choices and defaults, and `the-events-calendar-shortcode/build-shortcode` turns chosen options into an `[ecs-list-events]` shortcode and can preview its output. They are available through the REST API and the MCP Adapter plugin to users who can edit published posts.
 
+= Is this the same plugin as Events Shortcodes For The Events Calendar? =
+
+No. Events Shortcodes For The Events Calendar (previously named "The Events Calendar Shortcode and Templates") is a separate plugin made by Cool Plugins, and it uses the `[events-calendar-templates]` shortcode. The Events Calendar Shortcode & Block is made by Event Calendar Newsletter and uses the `[ecs-list-events]` shortcode. The two plugins have different options, so the options on this page only work with `[ecs-list-events]`.
+
 = What are the classes for styling the list of events? =
 
 By default the plugin does not include styling. Events are listed in ul li tags with appropriate classes for styling with a bit of CSS.
@@ -229,6 +234,13 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 5. Many settings you can use in the shortcode to change what details appear in the events listing
 
 == Changelog ==
+
+= v4.1.1 - 2026-11-26 =
+
+##### Bug Fixes
+
++ Fixed the email opt-in notice.
+
 
 = v4.1.0 - 2026-11-23 =
 
@@ -309,10 +321,3 @@ The [pro version of the plugin](https://eventcalendarnewsletter.com/the-events-c
 ##### Updates and Enhancements
 
 + Optional opt-in tracking notice added
-
-
-= v2.8.4 - 2023-12-03 =
-
-##### Bug Fixes
-
-+ Fixing documentation page

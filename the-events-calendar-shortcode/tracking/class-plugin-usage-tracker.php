@@ -93,6 +93,8 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
         }
 
         public function init() {
+            $this->reset_email_consent();
+
             // Check marketing
             if ( $this->marketing == 3 ) {
                 $this->set_can_collect_email( true, $this->plugin_name );
@@ -273,6 +275,12 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
             // Collect the email if the correct option has been set
             if ( $this->get_can_collect_email() ) {
                 $body['email'] = $this->get_admin_email();
+
+                // Unix time the admin clicked "Yes Please", sent only for explicit consent
+                $consent = get_option( 'wisdom_marketing_consent', [] );
+                if ( isset( $consent[$this->plugin_name] ) ) {
+                    $body['marketing_consent'] = $consent[$this->plugin_name];
+                }
             }
             $body['marketing_method'] = $this->marketing;
 
@@ -713,6 +721,26 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
         }
 
         /**
+         * Clear email consent stored before "No Thank You" was handled correctly, once per plugin
+         *
+         * Earlier versions stored consent for both "Yes Please" and "No Thank You", so a stored
+         * consent cannot be trusted and usage pings stop including the admin email.
+         *
+         * @since 4.1.1
+         */
+        public function reset_email_consent() {
+            $reset = get_option( 'wisdom_collect_email_reset', [] );
+
+            if ( isset( $reset[$this->plugin_name] ) ) {
+                return;
+            }
+
+            $this->set_can_collect_email( false, $this->plugin_name );
+            $reset[$this->plugin_name] = time();
+            update_option( 'wisdom_collect_email_reset', $reset );
+        }
+
+        /**
          * Get the correct email address to use
          *
          * @since 1.1.2
@@ -836,11 +864,14 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
                     // Option 2 enables a second notice that fires after the user opts in to tracking
                     $yes_args['marketing'] = 'yes';
                 }
-                $url_yes = add_query_arg( $yes_args );
+                // Start from the current URL without answers to earlier notices, so an answer
+                // given for another plugin is not carried into this plugin's links.
+                $base_url = remove_query_arg( [ 'plugin', 'plugin_action', 'marketing', 'marketing_optin' ] );
+                $url_yes = add_query_arg( $yes_args, $base_url );
                 $url_no = add_query_arg( [
                     'plugin' => $this->plugin_name,
                     'plugin_action' => 'no',
-                ] );
+                ], $base_url );
 
                 // Decide on notice text
                 if ( $this->marketing != 1 ) {
@@ -859,12 +890,12 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
                 // And we allow you to filter the text anyway
                 $notice_text = apply_filters( 'wisdom_notice_text_' . esc_attr( $this->plugin_name ), $notice_text ); ?>
 
-				<div class="notice notice-info updated put-dismiss-notice">
+				<div class="notice notice-info put-dismiss-notice">
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $notice_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'the-events-calendar-shortcode' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'the-events-calendar-shortcode' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" class="button button-primary"><?php _e( 'Allow', 'the-events-calendar-shortcode' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" class="button"><?php _e( 'Do Not Allow', 'the-events-calendar-shortcode' ); ?></a>
 					</p>
 				</div>
 			<?php
@@ -879,11 +910,24 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
          */
         public function marketing_notice() {
             // Check if user has opted in to marketing
-            if ( isset( $_GET['marketing_optin'] ) ) {
-                // Set marketing optin
-                $this->set_can_collect_email( sanitize_text_field( $_GET['marketing_optin'] ), $this->plugin_name );
-                // Do tracking
-                $this->do_tracking( true );
+            // Only the notice for this plugin records its answer, and only an explicit "yes" is consent.
+            if ( isset( $_GET['marketing_optin'], $_GET['plugin'] ) ) {
+                if ( $_GET['plugin'] === $this->plugin_name ) {
+                    $consented = 'yes' === $_GET['marketing_optin'];
+                    $this->set_can_collect_email( $consented, $this->plugin_name );
+
+                    // Record when the admin said yes, so the tracking server can tell explicit consent apart.
+                    $consent = get_option( 'wisdom_marketing_consent', [] );
+                    if ( $consented ) {
+                        $consent[$this->plugin_name] = time();
+                    } else {
+                        unset( $consent[$this->plugin_name] );
+                    }
+                    update_option( 'wisdom_marketing_consent', $consent );
+
+                    // Do tracking
+                    $this->do_tracking( true );
+                }
             } elseif ( isset( $_GET['marketing'], $_GET['plugin'] ) && $_GET['marketing'] === 'yes' && $_GET['plugin'] === $this->plugin_name ) {
                 // If they have already been asked for a rating, they have already had the plugin for 30 days, so don't
                 // ask to join the email list and getting started sequence.
@@ -896,24 +940,38 @@ if ( ! class_exists( 'TECS_Plugin_Usage_Tracker' ) ) {
                 $plugin = $this->plugin_data();
                 $plugin_name = $plugin['Name'];
 
+                $base_url = remove_query_arg( [ 'plugin', 'plugin_action', 'marketing', 'marketing_optin' ] );
                 $url_yes = add_query_arg( [
                     'plugin' => $this->plugin_name,
                     'marketing_optin' => 'yes',
-                ] );
+                ], $base_url );
                 $url_no = add_query_arg( [
                     'plugin' => $this->plugin_name,
                     'marketing_optin' => 'no',
-                ] );
+                ], $base_url );
 
-                $marketing_text = __( 'Thank you for opting in to tracking! Would you like to receive occasional news about this plugin, along with help getting started and details of new features?', 'the-events-calendar-shortcode' );
+                $marketing_text = __( 'Would you like occasional emails with tips, new features and special offers, including discounts on our Pro plugins?', 'the-events-calendar-shortcode' );
                 $marketing_text = apply_filters( 'wisdom_marketing_text_' . esc_attr( $this->plugin_name ), $marketing_text ); ?>
 
-				<div class="notice notice-info updated put-dismiss-notice">
+				<div class="notice notice-info put-dismiss-notice">
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $marketing_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php _e( 'Yes Please', 'the-events-calendar-shortcode' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php _e( 'No Thank You', 'the-events-calendar-shortcode' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button button-primary"><?php _e( 'Yes Please', 'the-events-calendar-shortcode' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button"><?php _e( 'No Thank You', 'the-events-calendar-shortcode' ); ?></a>
+					</p>
+					<p class="description">
+						<?php
+						printf(
+							/* translators: 1: email address, 2: mailing address, 3: contact email address, 4: opening privacy policy link tag, 5: closing link tag */
+							esc_html__( 'Sent to %1$s by Event Calendar Newsletter (7184948 Canada Inc), %2$s, %3$s. Unsubscribe at any time from any email. %4$sPrivacy policy%5$s', 'the-events-calendar-shortcode' ),
+							'<strong>' . esc_html( $this->get_admin_email() ? $this->get_admin_email() : wp_get_current_user()->user_email ) . '</strong>',
+							'222 Main Street East, North Bay, ON, P1B 1B1, Canada',
+							'info@eventcalendarnewsletter.com',
+							'<a href="https://eventcalendarnewsletter.com/privacy/" target="_blank">',
+							'</a>'
+						);
+						?>
 					</p>
 				</div>
 				<?php

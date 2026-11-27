@@ -2,8 +2,8 @@
 /**
  * Plugin Name: The Events Calendar Shortcode & Block
  * Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
- * Description: Add shortcode, block and Elementor widget functionality to The Events Calendar Plugin, so you can easily list and promote your events anywhere.
- * Version: 4.1.0
+ * Description: List your events from The Events Calendar anywhere, with a shortcode, a block, or an Elementor, Bricks, Divi or WPBakery element.
+ * Version: 4.1.1
  * Author: Event Calendar Newsletter
  * Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode
  * Contributors: brianhogg
@@ -11,7 +11,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: the-events-calendar-shortcode
  * Requires at least: 6.3
- * Tested up to: 7.1
+ * Tested up to: 7.2
  * Requires PHP: 7.4
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -135,7 +135,7 @@ if ( ! function_exists( 'tecs_image_url' ) ) {
 if ( ! class_exists( 'Events_Calendar_Shortcode' ) ) {
     class Events_Calendar_Shortcode {
 
-        const VERSION = '4.1.0';
+        const VERSION = '4.1.1';
 
         private $admin_page = null;
 
